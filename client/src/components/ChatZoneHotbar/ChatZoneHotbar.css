@@ -1,0 +1,13 @@
+.chat-zone-hotbar{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    height: 5vh;
+    border-bottom: 1px solid black;
+    text-align: center;
+}
+
+.chat-zone-hotbar-title{
+    margin-left: 1rem;
+}

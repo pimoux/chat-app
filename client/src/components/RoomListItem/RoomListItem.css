@@ -1,0 +1,15 @@
+.room-list-item{
+    width: 12.5vw;
+    height: 100vh;
+    border-right: 1px solid black;
+    display: flex;
+    overflow-y: scroll;
+    flex-direction: column;
+    text-align: center;
+    background-color: #001E6C;
+    color: white;
+}
+
+.room-title{
+    text-decoration: underline;
+}

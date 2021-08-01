@@ -1,0 +1,19 @@
+.input-zone{
+    width: 100%;
+    height: 8vh;
+}
+
+#send-message{
+    display: table-cell;
+    width: 100%;
+    height: 100%;
+    font-size: 1.25em;
+    font-family: 'Montserrat', sans-serif;
+    padding-left: 2rem;
+    border: none;
+    background-color: #E2E2E2;
+}
+
+#send-message::placeholder{
+    font-family: 'Montserrat', sans-serif;
+}

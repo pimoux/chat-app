@@ -1,0 +1,25 @@
+.user-list-item{
+    width: 12.5vw;
+    height: 100vh;
+    border-left: 1px solid black;
+    display: flex;
+    overflow-y: scroll;
+    flex-direction: column;
+    text-align: center;
+}
+
+.user-title{
+    text-decoration: underline;
+}
+
+.user{
+    cursor: pointer;
+}
+
+.you{
+    text-decoration: underline;
+}
+
+.user.you{
+    cursor: default;
+}
