@@ -32,22 +32,28 @@ io.on('connection', (socket) => {
         const date = new Date().toLocaleTimeString(['fr-FR'], {hour: '2-digit', minute: '2-digit'});
 
         io.emit('users', getAllUsers());
-        io.emit('message', {user: 'God', text: text, date: date, private: false})
+        io.emit('message', {user: 'God', text: text, date: date, private: false, type: 'text'})
     });
 
     socket.on('send-message', (message, callback) => {
         const user = getUser(socket.id);
         const date = new Date().toLocaleTimeString(['fr-FR'], {hour: '2-digit', minute: '2-digit'});
-        io.emit('message', {user: user.name, text: message, date: date, private: false});
+        io.emit('message', {user: user.name, text: message, date: date, private: false, type: 'text'});
         callback();
+    })
+
+    socket.on('send-image', ({url, fileInfo}) => {
+        const user = getUser(socket.id);
+        const date = new Date().toLocaleTimeString(['fr-FR'], {hour: '2-digit', minute: '2-digit'});
+        io.emit('image', {user: user.name, url: url, fileInfo: fileInfo, date: date, private: false, type: 'image'})
     })
 
     socket.on('send-private-message', ({content, recipient}) => {
         const user = getUser(socket.id);
         const recipientId = getAllUsers().find(user => user.name === recipient).id;
         const date = new Date().toLocaleTimeString(['fr-FR'], {hour: '2-digit', minute: '2-digit'});
-        io.to(recipientId).emit('private-message', {user: user.name, text: content, date: date, private: true})
-        io.to(user.id).emit('private-message', {user: user.name, text: content, date: date, private: true})
+        io.to(recipientId).emit('private-message', {user: user.name, text: content, date: date, private: true, type: 'text'})
+        io.to(user.id).emit('private-message', {user: user.name, text: content, date: date, private: true, type: 'text'})
     })
 
     socket.on('disconnect', () => {
@@ -55,7 +61,7 @@ io.on('connection', (socket) => {
         const date = new Date().toLocaleTimeString(['fr-FR'], {hour: '2-digit', minute: '2-digit'});
         if (user) {
             io.emit('users', getAllUsers());
-            io.emit('message', {user: 'God', text: `${user.name} nous a quitté :(`, date: date, private: false})
+            io.emit('message', {user: 'God', text: `${user.name} nous a quitté :(`, date: date, private: false, type: 'text'})
         }
     })
 })

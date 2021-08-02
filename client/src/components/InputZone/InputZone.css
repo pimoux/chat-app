@@ -1,6 +1,18 @@
 .input-zone{
     width: 100%;
     height: 8vh;
+    display: flex;
+    align-items: center;
+    background-color: #E2E2E2;
+}
+
+.image-container > #send-image {
+    display: none;
+}
+
+.image-container{
+    position: relative;
+    left: 0.5rem;
 }
 
 #send-message{
@@ -9,11 +21,21 @@
     height: 100%;
     font-size: 1.25em;
     font-family: 'Montserrat', sans-serif;
-    padding-left: 2rem;
+    padding-left: 1rem;
     border: none;
     background-color: #E2E2E2;
 }
 
+#send-message:focus{
+    outline: none;
+    border: none;
+}
+
 #send-message::placeholder{
     font-family: 'Montserrat', sans-serif;
+}
+
+.big-font{
+    font-size: 1.5rem;
+    cursor: pointer;
 }

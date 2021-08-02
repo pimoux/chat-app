@@ -1,0 +1,13 @@
+.image-file{
+    width: 70%;
+    height: 70%;
+}
+
+.image-info{
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.image-info:hover{
+    color: black;
+}

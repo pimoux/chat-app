@@ -14,6 +14,7 @@ const Chat = ({location}) => {
     const [selectedUsername, setSelectedUsername] = useState('');
     const [message, setMessage] = useState('');
     const [privateMessage, setPrivateMessage] = useState('');
+    const [uploadedFile, setUploadedFile] = useState('');
     const [messages, setMessages] = useState([]);
     const ENDPOINT = 'http://localhost:5000';
 
@@ -49,11 +50,21 @@ const Chat = ({location}) => {
             setUsers(user);
         })
 
+        socket.on('image', (imageMessage) => {
+            setMessages([...messages, imageMessage])
+        })
+
         //avoid lag
         return () => {
             socket.off();
         }
     }, [messages]);
+
+    useEffect(() => {
+        if(uploadedFile){
+            socket.emit('send-image', {url: uploadedFile.url, fileInfo: uploadedFile.fileInfo});
+        }
+    }, [uploadedFile])
 
     const onChangeMessage = message => {
         setMessage(message);
@@ -61,6 +72,16 @@ const Chat = ({location}) => {
 
     const onChangePrivateMessage = privateMessage => {
         setPrivateMessage(privateMessage);
+    }
+
+    const onUploadFile = e => {
+        setUploadedFile({
+            url: URL.createObjectURL(e.target.files[0]),
+            fileInfo: {
+                size: e.target.files[0].size,
+                name: e.target.files[0].name
+            }
+        })
     }
 
     const onSendMessage = e => {
@@ -91,12 +112,15 @@ const Chat = ({location}) => {
         setSelectedUsername(e.target.textContent);
     }
 
+    console.log(uploadedFile);
+
     return (
         <div className="chat">
             <RoomListItem/>
             <ChatZone
                 onChangeMessage={onChangeMessage}
                 onKeyPress={onSendMessage}
+                onUploadFile={onUploadFile}
                 messages={messages}
                 name={name}
                 privateRecipient={selectedUsername}
