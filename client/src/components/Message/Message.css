@@ -30,6 +30,10 @@
     background: #F3F3F3;
 }
 
+.other.private, .current.private{
+    background-color: #8C8C8C;
+}
+
 .white {
     color: white;
 }

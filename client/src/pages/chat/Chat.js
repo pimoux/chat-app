@@ -11,25 +11,22 @@ let socket;
 const Chat = ({location}) => {
     const [name, setName] = useState('');
     const [users, setUsers] = useState([]);
+    const [selectedUsername, setSelectedUsername] = useState('');
     const [message, setMessage] = useState('');
+    const [privateMessage, setPrivateMessage] = useState('');
     const [messages, setMessages] = useState([]);
     const ENDPOINT = 'http://localhost:5000';
 
-    socket = io(ENDPOINT);
-
     useEffect(() => {
+        socket = io(ENDPOINT);
         const {name} = queryString.parse(location.search, '?');
         setName(name);
 
         socket.emit('join', {name}, (error) => {
-            if(error){
+            if (error) {
                 setTimeout(() => window.location = `http://localhost:3000`, 1000);
                 alert(error);
             }
-        })
-
-        socket.on('users', (user) => {
-            setUsers(user);
         })
 
         return () => {
@@ -44,6 +41,14 @@ const Chat = ({location}) => {
             setMessages([...messages, message]);
         })
 
+        socket.on('private-message', (privateMessage) => {
+            setMessages([...messages, privateMessage]);
+        })
+
+        socket.on('users', (user) => {
+            setUsers(user);
+        })
+
         //avoid lag
         return () => {
             socket.off();
@@ -52,6 +57,10 @@ const Chat = ({location}) => {
 
     const onChangeMessage = message => {
         setMessage(message);
+    }
+
+    const onChangePrivateMessage = privateMessage => {
+        setPrivateMessage(privateMessage);
     }
 
     const onSendMessage = e => {
@@ -64,6 +73,24 @@ const Chat = ({location}) => {
         }
     }
 
+    const onSendPrivateMessage = e => {
+        e.preventDefault()
+        if (privateMessage) {
+            socket.emit('send-private-message', {
+                content: privateMessage,
+                recipient: selectedUsername
+            }, () => {
+
+            })
+            setPrivateMessage('');
+            document.querySelectorAll('.send-private-message').forEach(input => input.value = '')
+        }
+    }
+
+    const onSelectUsername = e => {
+        setSelectedUsername(e.target.textContent);
+    }
+
     return (
         <div className="chat">
             <RoomListItem/>
@@ -72,8 +99,15 @@ const Chat = ({location}) => {
                 onKeyPress={onSendMessage}
                 messages={messages}
                 name={name}
+                privateRecipient={selectedUsername}
             />
-            <UserListItem users={users} name={name}/>
+            <UserListItem
+                users={users}
+                name={name}
+                onChangeMessage={onChangePrivateMessage}
+                onKeyPress={onSendPrivateMessage}
+                onSelectUsername={onSelectUsername}
+            />
         </div>
     )
 }

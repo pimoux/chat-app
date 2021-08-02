@@ -21,6 +21,11 @@ const SignIn = () => {
 
     return (
         <div className='signin'>
+            <div>
+                <h1>Realtime Chat Application <span role="img" aria-label="emoji">💬</span></h1>
+                <h2>Created with React, Node and Socket.IO <span role="img" aria-label="emoji">❤️</span></h2>
+                <h2>Try it out right now! <span role="img" aria-label="emoji">⬇️️</span></h2>
+            </div>
             <div className="join-chat">
                 <p className="chat-celeste">Bienvenue sur le chat céleste !</p>
                 {error ? <p className="hasError">Vous devez renseigner un nom d'utilisateur</p> :
