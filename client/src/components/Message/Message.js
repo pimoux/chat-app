@@ -3,7 +3,7 @@ import './Message.css';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faEnvelope} from "@fortawesome/free-solid-svg-icons";
 
-const Message = ({message, name, privateRecipient}) => {
+const Message = ({message, name}) => {
     const rightName = name.trim().toLowerCase();
     const messageSentByCurrentUser = message.user === rightName;
     if(!message.private){
@@ -25,7 +25,7 @@ const Message = ({message, name, privateRecipient}) => {
     } else {
         return (messageSentByCurrentUser ?
                 <div className="message-container end">
-                    <p className="username pr-2">to {privateRecipient}</p>
+                    <p className="username pr-2">to {message.recipient}</p>
                     <div className="message current private">
                         <p className="message-text white">
                             {message.text} &nbsp;

@@ -19,7 +19,7 @@ io.on('connection', (socket) => {
     socket.on('join', ({name}, callback) => {
         const {user, error} = addUser({id: socket.id, name});
 
-        if(error) return callback(error);
+        if (error) return callback(error);
 
         const messages = [
             `Un ${user.name} sauvage nous a rejoint!`,
@@ -52,8 +52,38 @@ io.on('connection', (socket) => {
         const user = getUser(socket.id);
         const recipientId = getAllUsers().find(user => user.name === recipient).id;
         const date = new Date().toLocaleTimeString(['fr-FR'], {hour: '2-digit', minute: '2-digit'});
-        io.to(recipientId).emit('private-message', {user: user.name, text: content, date: date, private: true, type: 'text'})
-        io.to(user.id).emit('private-message', {user: user.name, text: content, date: date, private: true, type: 'text'})
+        io.to(recipientId).to(user.id).emit('private-message', {
+            user: user.name,
+            text: content,
+            date: date,
+            private: true,
+            recipient: recipient,
+            type: 'text'
+        })
+    })
+
+    socket.on('send-private-image', ({url, fileInfo, recipient}) => {
+        const user = getUser(socket.id);
+        const recipientId = getAllUsers().find(user => user.name === recipient).id;
+        const date = new Date().toLocaleTimeString(['fr-FR'], {hour: '2-digit', minute: '2-digit'});
+        io.to(recipientId).emit('private-image', {
+            user: user.name,
+            url: url,
+            fileInfo: fileInfo,
+            date: date,
+            private: true,
+            recipient: recipient,
+            type: 'image'
+        });
+        io.to(user.id).emit('private-image', {
+            user: user.name,
+            url: url,
+            fileInfo: fileInfo,
+            date: date,
+            private: true,
+            recipient: recipient,
+            type: 'image'
+        })
     })
 
     socket.on('disconnect', () => {
@@ -61,7 +91,13 @@ io.on('connection', (socket) => {
         const date = new Date().toLocaleTimeString(['fr-FR'], {hour: '2-digit', minute: '2-digit'});
         if (user) {
             io.emit('users', getAllUsers());
-            io.emit('message', {user: 'God', text: `${user.name} nous a quitté :(`, date: date, private: false, type: 'text'})
+            io.emit('message', {
+                user: 'God',
+                text: `${user.name} nous a quitté :(`,
+                date: date,
+                private: false,
+                type: 'text'
+            })
         }
     })
 })

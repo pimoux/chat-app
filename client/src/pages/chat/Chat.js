@@ -15,6 +15,7 @@ const Chat = ({location}) => {
     const [message, setMessage] = useState('');
     const [privateMessage, setPrivateMessage] = useState('');
     const [uploadedFile, setUploadedFile] = useState('');
+    const [privateUploadedFile, setPrivateUploadedFile] = useState('');
     const [messages, setMessages] = useState([]);
     const ENDPOINT = 'http://localhost:5000';
 
@@ -51,7 +52,11 @@ const Chat = ({location}) => {
         })
 
         socket.on('image', (imageMessage) => {
-            setMessages([...messages, imageMessage])
+            setMessages([...messages, imageMessage]);
+        })
+
+        socket.on('private-image', (privateImage) => {
+            setMessages([...messages, privateImage]);
         })
 
         //avoid lag
@@ -61,10 +66,22 @@ const Chat = ({location}) => {
     }, [messages]);
 
     useEffect(() => {
-        if(uploadedFile){
+        if (uploadedFile) {
             socket.emit('send-image', {url: uploadedFile.url, fileInfo: uploadedFile.fileInfo});
+            setUploadedFile('');
         }
     }, [uploadedFile])
+
+    useEffect(() => {
+        if (privateUploadedFile && selectedUsername) {
+            socket.emit('send-private-image', {
+                url: privateUploadedFile.url,
+                fileInfo: privateUploadedFile.fileInfo,
+                recipient: selectedUsername
+            });
+            setPrivateUploadedFile('');
+        }
+    }, [privateUploadedFile, selectedUsername])
 
     const onChangeMessage = message => {
         setMessage(message);
@@ -75,13 +92,27 @@ const Chat = ({location}) => {
     }
 
     const onUploadFile = e => {
-        setUploadedFile({
-            url: URL.createObjectURL(e.target.files[0]),
-            fileInfo: {
-                size: e.target.files[0].size,
-                name: e.target.files[0].name
-            }
-        })
+        if (e.target.files[0]) {
+            setUploadedFile({
+                url: URL.createObjectURL(e.target.files[0]),
+                fileInfo: {
+                    size: e.target.files[0].size,
+                    name: e.target.files[0].name
+                }
+            })
+        }
+    }
+
+    const onPrivateUploadFile = e => {
+        if (e.target.files[0]) {
+            setPrivateUploadedFile({
+                url: URL.createObjectURL(e.target.files[0]),
+                fileInfo: {
+                    size: e.target.files[0].size,
+                    name: e.target.files[0].name
+                }
+            })
+        }
     }
 
     const onSendMessage = e => {
@@ -96,12 +127,10 @@ const Chat = ({location}) => {
 
     const onSendPrivateMessage = e => {
         e.preventDefault()
-        if (privateMessage) {
+        if (privateMessage && selectedUsername) {
             socket.emit('send-private-message', {
                 content: privateMessage,
                 recipient: selectedUsername
-            }, () => {
-
             })
             setPrivateMessage('');
             document.querySelectorAll('.send-private-message').forEach(input => input.value = '')
@@ -112,8 +141,6 @@ const Chat = ({location}) => {
         setSelectedUsername(e.target.textContent);
     }
 
-    console.log(uploadedFile);
-
     return (
         <div className="chat">
             <RoomListItem/>
@@ -123,14 +150,15 @@ const Chat = ({location}) => {
                 onUploadFile={onUploadFile}
                 messages={messages}
                 name={name}
-                privateRecipient={selectedUsername}
             />
             <UserListItem
                 users={users}
                 name={name}
+                selectedUsername={selectedUsername}
                 onChangeMessage={onChangePrivateMessage}
                 onKeyPress={onSendPrivateMessage}
                 onSelectUsername={onSelectUsername}
+                onPrivateUploadFiles={onPrivateUploadFile}
             />
         </div>
     )

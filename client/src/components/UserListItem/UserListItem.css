@@ -1,4 +1,4 @@
-.user-list-item{
+.user-list-item {
     width: 12.5vw;
     height: 100vh;
     border-left: 1px solid black;
@@ -8,20 +8,56 @@
     text-align: center;
 }
 
-.user-title{
+.user-title {
     text-decoration: underline;
 }
 
-.user{
+.user {
     cursor: pointer;
 }
 
-.you{
+.you {
     text-decoration: underline;
 }
 
-.user.you{
+.user.you {
     cursor: default;
+}
+
+.modal-user {
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-user p{
+    text-align: center;
+}
+
+.private-actions > #send-private-image {
+    display: none;
+}
+
+.private-actions {
+    width: 40vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.send-private-message{
+    display: table-cell;
+    width: 100%;
+    height: 5vh;
+    margin: 0 1rem;
+}
+
+.very-big-font{
+    font-size: 1.75rem;
+    cursor: pointer;
+}
+
+.private-actions button{
+    padding: 0.4rem;
 }
 
 .ReactModal__Overlay {
