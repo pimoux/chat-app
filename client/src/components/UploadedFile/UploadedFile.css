@@ -11,3 +11,12 @@
 .image-info:hover{
     color: black;
 }
+
+.trash{
+    cursor: pointer;
+    align-self: center;
+}
+
+.trash:hover{
+    color: red;
+}
