@@ -1,4 +1,4 @@
-.room-list-item{
+.room-list-item {
     width: 12.5vw;
     height: 100vh;
     border-right: 1px solid black;
@@ -10,6 +10,6 @@
     color: white;
 }
 
-.room-title{
+.room-title {
     text-decoration: underline;
 }

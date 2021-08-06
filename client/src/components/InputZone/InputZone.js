@@ -1,9 +1,14 @@
 import React from 'react';
 import './InputZone.css';
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faPaperclip} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faPaperclip, faMicrophone} from '@fortawesome/free-solid-svg-icons';
 
-const InputZone = ({onChangeMessage, onKeyPress, onUploadFile}) => {
+const InputZone = ({
+    onChangeMessage,
+    onKeyPress,
+    onUploadFile,
+    isSpeechActivated,
+}) => {
 
     return (
         <div className="input-zone">
@@ -19,6 +24,12 @@ const InputZone = ({onChangeMessage, onKeyPress, onUploadFile}) => {
                     accept="image/png, image/jpg, image/jpeg, image/gif"
                 />
             </div>
+            <FontAwesomeIcon
+                icon={faMicrophone}
+                id="fa-microphone-public"
+                className={isSpeechActivated
+                    ? 'big-font ml-24 red'
+                    : 'big-font ml-24'}/>
             <input
                 onChange={(e) => onChangeMessage(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' ? onKeyPress(e) : null}
@@ -28,7 +39,7 @@ const InputZone = ({onChangeMessage, onKeyPress, onUploadFile}) => {
                 placeholder="write a message..."
             />
         </div>
-    )
-}
+    );
+};
 
 export default InputZone;

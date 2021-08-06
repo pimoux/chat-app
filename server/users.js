@@ -2,7 +2,7 @@ const users = [];
 
 const addUser = ({id, name}) => {
     name = name.trim().toLowerCase();
-    let existingUser = users.find(user => user.name === name);
+    const existingUser = users.find(user => user.name === name);
     if (existingUser) {
         return {error: "ce nom d'utilisateur a déjà été choisi. Vous allez être redirigé à la page d'accueil."}
     }
@@ -27,4 +27,8 @@ const getAllUsers = () => {
     return users;
 }
 
-module.exports = {addUser, removeUser, getUser, getAllUsers}
+const getAllUsernames = () => {
+    return users.map(user => user.name);
+}
+
+module.exports = {addUser, removeUser, getUser, getAllUsers, getAllUsernames}

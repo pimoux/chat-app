@@ -12,6 +12,7 @@ const ChatZone = ({
     onSelectMessageToDelete,
     messages,
     name,
+    isSpeechActivated
 }) => {
     return (
       <div className="chat-zone">
@@ -26,6 +27,7 @@ const ChatZone = ({
             onChangeMessage={onChangeMessage}
             onKeyPress={onKeyPress}
             onUploadFile={onUploadFile}
+            isSpeechActivated={isSpeechActivated}
           />
       </div>
     )

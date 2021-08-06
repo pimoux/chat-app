@@ -1,8 +1,12 @@
-import React from 'react'
-import Modal from 'react-modal'
-import customStyles from '../utils/modal-style'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPaperclip, faPaperPlane } from '@fortawesome/free-solid-svg-icons'
+import React from 'react';
+import Modal from 'react-modal';
+import customStyles from '../utils/modal-style';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {
+    faMicrophone,
+    faPaperclip,
+    faPaperPlane,
+} from '@fortawesome/free-solid-svg-icons';
 
 const ModalPrivateUser = ({
     isOpen,
@@ -13,11 +17,11 @@ const ModalPrivateUser = ({
     onKeyPress,
 }) => {
     return <Modal
-      isOpen={isOpen}
-      style={customStyles}
-      onRequestClose={() => setIsOpen(false)}
-      closeTimeoutMS={200}
-      ariaHideApp={false}
+        isOpen={isOpen}
+        style={customStyles}
+        onRequestClose={() => setIsOpen(false)}
+        closeTimeoutMS={200}
+        ariaHideApp={false}
     >
         <div className="modal-user">
             <p>Send a private message to {selectedUsername}</p>
@@ -26,18 +30,21 @@ const ModalPrivateUser = ({
                     <FontAwesomeIcon icon={faPaperclip}
                                      className="very-big-font"/>
                 </label>
+                <FontAwesomeIcon icon={faMicrophone}
+                                 id="fa-microphone-private"
+                                 className="very-big-font ml-24"/>
                 <input
-                  type="file"
-                  name="send-private-image"
-                  id="send-private-image"
-                  accept="image/png, image/jpg, image/jpeg, image/gif"
-                  onChange={(e) => onPrivateUploadFiles(e)}
+                    type="file"
+                    name="send-private-image"
+                    id="send-private-image"
+                    accept="image/png, image/jpg, image/jpeg, image/gif"
+                    onChange={(e) => onPrivateUploadFiles(e)}
                 />
                 <input
-                  type="text"
-                  className="send-private-message"
-                  onChange={(e) => onChangeMessage(e.target.value)}
-                  onKeyPress={(e) => e.key === 'Enter' ? onKeyPress(e) : null}
+                    type="text"
+                    className="send-private-message"
+                    onChange={(e) => onChangeMessage(e.target.value)}
+                    onKeyPress={(e) => e.key === 'Enter' ? onKeyPress(e) : null}
                 />
                 <button type="submit"
                         onClick={(e) => onKeyPress(e)}>
@@ -45,7 +52,7 @@ const ModalPrivateUser = ({
                 </button>
             </div>
         </div>
-    </Modal>
-}
+    </Modal>;
+};
 
-export default ModalPrivateUser
+export default ModalPrivateUser;
