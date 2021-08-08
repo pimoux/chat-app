@@ -87,7 +87,6 @@ const UploadedFile = ({
                         </span>
                     </p>
                 </div>
-                <p className="username pl-2">{message.user}</p>
                 <ModalImage url={message.url} isOpen={isOpen} setIsOpen={setIsOpen}/>
             </div>
         )

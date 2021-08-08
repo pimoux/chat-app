@@ -27,7 +27,7 @@ io.on('connection', (socket) => {
             `Content de te voir, ${user.name}`,
             `Voici l'atterrissage d'un ${user.name} dans ce chat`,
             `${user.name} a rejoint le groupe`,
-            `bienvenue ${user.name}, j'espère que tu nous a apporté de la pizza!`,
+            `bienvenue ${user.name}, j'espère que tu nous a apporté des spaghettis bolognaise!`,
         ];
         const text = messages[Math.floor(Math.random() * messages.length)];
         const date = new Date().toLocaleTimeString(['fr-FR'],

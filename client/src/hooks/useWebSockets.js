@@ -3,36 +3,42 @@ import io from 'socket.io-client';
 import queryString from 'querystring';
 import useFiles from './useFiles';
 import useMessages from './useMessages';
+import useSpeech from './useSpeech';
 
-let socket, speechContent, recognition;
+let socket;
 
 const useWebSockets = (location) => {
     const [name, setName] = useState('');
     const [selectedUsername, setSelectedUsername] = useState('');
     const [messages, setMessages] = useState([]);
     const [users, setUsers] = useState([]);
-    const [isSpeechActivated, setIsSpeechActivated] = useState(false);
-    const [onUploadFile, onPrivateUploadFile] = useFiles(selectedUsername, socket);
     const [
         onChangeMessage,
         onChangePrivateMessage,
-        onSendPrivateMessage,
         onSelectMessageToDelete,
         onDeleteMessage,
         message,
         setMessage,
+        privateMessage,
+        setPrivateMessage,
     ] = useMessages(selectedUsername, socket);
+    const [
+        isSpeechActivated,
+        setIsSpeechActivated,
+        setSpeechContent,
+        isPrivateSpeech,
+        setIsPrivateSpeech,
+        privateSpeechContent,
+        setPrivateSpeechContent,
+    ] = useSpeech(setMessage, selectedUsername);
+    const [onUploadFile, onPrivateUploadFile] = useFiles(selectedUsername,
+        socket);
     const ENDPOINT = 'http://localhost:5000';
 
     useEffect(() => {
         socket = io(ENDPOINT);
         const {name} = queryString.parse(location.search, '?');
         setName(name);
-
-        let speechRecognition = window.webkitSpeechRecognition;
-        recognition = new speechRecognition();
-        speechContent = '';
-        recognition.continuous = true;
 
         socket.emit('join', {name}, (error) => {
             if (error) {
@@ -68,37 +74,6 @@ const useWebSockets = (location) => {
         };
     }, [messages]);
 
-    useEffect(() => {
-        let publicMicrophoneElt = document.querySelector(
-            '#fa-microphone-public');
-        publicMicrophoneElt.onclick = () => {
-            if (!isSpeechActivated) {
-                if (speechContent.length) {
-                    speechContent += '';
-                }
-                recognition.start();
-            } else {
-                recognition.stop();
-                speechContent = '';
-            }
-            setIsSpeechActivated(!isSpeechActivated);
-        };
-
-        recognition.error = () => {
-            console.log('une erreur est survenue');
-        };
-
-        recognition.lang = 'fr-FR';
-
-        recognition.onresult = (e) => {
-            let current = e.resultIndex;
-            let transcript = e.results[current][0].transcript;
-            speechContent += transcript;
-            document.querySelector('#send-message').value = speechContent;
-            setMessage(speechContent);
-        };
-    }, [isSpeechActivated]);
-
     const onSendMessage = e => {
         e.preventDefault();
         if (message) {
@@ -107,15 +82,26 @@ const useWebSockets = (location) => {
                 document.querySelector('#send-message').value = '';
             });
         }
-        speechContent = '';
+        setSpeechContent('');
+    };
+
+    const onSendPrivateMessage = e => {
+        e.preventDefault();
+        if (privateMessage && selectedUsername) {
+            socket.emit('send-private-message', {
+                content: privateMessage,
+                recipient: selectedUsername,
+            });
+            setPrivateMessage('');
+            document.querySelector('#send-private-message').value = '';
+        }
+        setPrivateSpeechContent('');
     };
 
     const onSelectUsername = e => {
-        setSelectedUsername(e.target.textContent);
-        if (isSpeechActivated) {
-            recognition.stop();
-            setIsSpeechActivated(false);
-        }
+        e
+            ? setSelectedUsername(e.target.textContent)
+            : setSelectedUsername('');
     };
 
     return [
@@ -124,6 +110,7 @@ const useWebSockets = (location) => {
         messages,
         users,
         isSpeechActivated,
+        setIsSpeechActivated,
         onChangeMessage,
         onChangePrivateMessage,
         onUploadFile,
@@ -133,6 +120,10 @@ const useWebSockets = (location) => {
         onSelectMessageToDelete,
         onDeleteMessage,
         onSelectUsername,
+        isPrivateSpeech,
+        setIsPrivateSpeech,
+        privateSpeechContent,
+        setPrivateSpeechContent,
     ];
 };
 

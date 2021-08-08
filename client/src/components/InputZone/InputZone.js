@@ -5,7 +5,7 @@ import {faPaperclip, faMicrophone} from '@fortawesome/free-solid-svg-icons';
 
 const InputZone = ({
     onChangeMessage,
-    onKeyPress,
+    onSendMessage,
     onUploadFile,
     isSpeechActivated,
 }) => {
@@ -32,7 +32,7 @@ const InputZone = ({
                     : 'big-font ml-24'}/>
             <input
                 onChange={(e) => onChangeMessage(e.target.value)}
-                onKeyPress={(e) => e.key === 'Enter' ? onKeyPress(e) : null}
+                onKeyPress={(e) => e.key === 'Enter' ? onSendMessage(e) : null}
                 type="text"
                 name="message"
                 id="send-message"

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import {useState, useEffect} from 'react';
 
 const useFiles = (selectedUsername, socket) => {
     const [uploadedFile, setUploadedFile] = useState('');
@@ -10,7 +10,7 @@ const useFiles = (selectedUsername, socket) => {
                 {url: uploadedFile.url, fileInfo: uploadedFile.fileInfo});
             setUploadedFile('');
         }
-    }, [uploadedFile]);
+    }, [uploadedFile, socket]);
 
     useEffect(() => {
         if (privateUploadedFile && selectedUsername) {
@@ -21,7 +21,7 @@ const useFiles = (selectedUsername, socket) => {
             });
             setPrivateUploadedFile('');
         }
-    }, [privateUploadedFile, selectedUsername]);
+    }, [privateUploadedFile, selectedUsername, socket]);
 
     const onUploadFile = e => {
         if (e.target.files[0]) {

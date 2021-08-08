@@ -13,6 +13,7 @@ const Chat = ({location}) => {
         messages,
         users,
         isSpeechActivated,
+        setIsSpeechActivated,
         onChangeMessage,
         onChangePrivateMessage,
         onUploadFile,
@@ -22,29 +23,38 @@ const Chat = ({location}) => {
         onSelectMessageToDelete,
         onDeleteMessage,
         onSelectUsername,
+        isPrivateSpeech,
+        setIsPrivateSpeech,
+        privateSpeechContent,
+        setPrivateSpeechContent,
     ] = useWebSockets(location);
 
     return (
         <div className="chat">
             <RoomListItem/>
             <ChatZone
-                onChangeMessage={onChangeMessage}
-                onDeleteMessage={onDeleteMessage}
-                onKeyPress={onSendMessage}
-                onUploadFile={onUploadFile}
-                onSelectMessageToDelete={onSelectMessageToDelete}
                 messages={messages}
                 name={name}
                 isSpeechActivated={isSpeechActivated}
+                onChangeMessage={onChangeMessage}
+                onDeleteMessage={onDeleteMessage}
+                onSendMessage={onSendMessage}
+                onUploadFile={onUploadFile}
+                onSelectMessageToDelete={onSelectMessageToDelete}
             />
             <UserListItem
                 users={users}
                 name={name}
                 selectedUsername={selectedUsername}
-                onChangeMessage={onChangePrivateMessage}
-                onKeyPress={onSendPrivateMessage}
+                onChangePrivateMessage={onChangePrivateMessage}
+                onSendPrivateMessage={onSendPrivateMessage}
                 onSelectUsername={onSelectUsername}
                 onPrivateUploadFiles={onPrivateUploadFile}
+                isPrivateSpeech={isPrivateSpeech}
+                setIsPrivateSpeech={setIsPrivateSpeech}
+                privateSpeechContent={privateSpeechContent}
+                setPrivateSpeechContent={setPrivateSpeechContent}
+                setIsSpeechActivated={setIsSpeechActivated}
             />
         </div>
     );

@@ -7,19 +7,29 @@ import {
     faPaperclip,
     faPaperPlane,
 } from '@fortawesome/free-solid-svg-icons';
+import usePrivateSpeech from '../hooks/usePrivateSpeech';
 
 const ModalPrivateUser = ({
     isOpen,
     setIsOpen,
     selectedUsername,
     onPrivateUploadFiles,
-    onChangeMessage,
-    onKeyPress,
+    onChangePrivateMessage,
+    onSendPrivateMessage,
+    isPrivateSpeech,
+    setIsPrivateSpeech,
+    privateSpeechContent,
+    setPrivateSpeechContent,
+    onSelectUsername,
+    setIsSpeechActivated
 }) => {
+    const [toggleSpeech, onRequestClose] = usePrivateSpeech(isPrivateSpeech, setIsPrivateSpeech,
+        privateSpeechContent, setPrivateSpeechContent, isOpen, setIsOpen,
+        onChangePrivateMessage, onSelectUsername, setIsSpeechActivated);
     return <Modal
         isOpen={isOpen}
         style={customStyles}
-        onRequestClose={() => setIsOpen(false)}
+        onRequestClose={() => onRequestClose()}
         closeTimeoutMS={200}
         ariaHideApp={false}
     >
@@ -30,9 +40,13 @@ const ModalPrivateUser = ({
                     <FontAwesomeIcon icon={faPaperclip}
                                      className="very-big-font"/>
                 </label>
-                <FontAwesomeIcon icon={faMicrophone}
-                                 id="fa-microphone-private"
-                                 className="very-big-font ml-24"/>
+                <FontAwesomeIcon
+                    icon={faMicrophone}
+                    id="fa-microphone-private"
+                    onClick={() => toggleSpeech()}
+                    className={isPrivateSpeech
+                        ? 'big-font ml-24 red'
+                        : 'big-font ml-24'}/>
                 <input
                     type="file"
                     name="send-private-image"
@@ -42,12 +56,14 @@ const ModalPrivateUser = ({
                 />
                 <input
                     type="text"
+                    id="send-private-message"
                     className="send-private-message"
-                    onChange={(e) => onChangeMessage(e.target.value)}
-                    onKeyPress={(e) => e.key === 'Enter' ? onKeyPress(e) : null}
+                    onChange={(e) => onChangePrivateMessage(e.target.value)}
+                    onKeyPress={(e) => e.key === 'Enter' ? onSendPrivateMessage(
+                        e) : null}
                 />
                 <button type="submit"
-                        onClick={(e) => onKeyPress(e)}>
+                        onClick={(e) => onSendPrivateMessage(e)}>
                     <FontAwesomeIcon icon={faPaperPlane} className="big-font"/>
                 </button>
             </div>

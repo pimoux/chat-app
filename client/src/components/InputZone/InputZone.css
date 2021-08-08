@@ -1,4 +1,4 @@
-.input-zone{
+.input-zone {
     width: 100%;
     height: 8vh;
     display: flex;
@@ -10,12 +10,12 @@
     display: none;
 }
 
-.image-container{
+.image-container {
     position: relative;
     left: 0.5rem;
 }
 
-#send-message{
+#send-message {
     display: table-cell;
     width: 100%;
     height: 100%;
@@ -26,24 +26,24 @@
     background-color: #E2E2E2;
 }
 
-#send-message:focus{
+#send-message:focus {
     outline: none;
     border: none;
 }
 
-#send-message::placeholder{
+#send-message::placeholder {
     font-family: 'Montserrat', sans-serif;
 }
 
-.big-font{
+.big-font {
     font-size: 1.5rem;
     cursor: pointer;
 }
 
-.ml-24{
+.ml-24 {
     margin-left: 24px;
 }
 
-.red{
+.red {
     color: red;
 }

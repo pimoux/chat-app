@@ -13,18 +13,6 @@ const useMessages = (selectedUsername, socket) => {
         setPrivateMessage(privateMessage);
     };
 
-    const onSendPrivateMessage = e => {
-        e.preventDefault();
-        if (privateMessage && selectedUsername) {
-            socket.emit('send-private-message', {
-                content: privateMessage,
-                recipient: selectedUsername,
-            });
-            setPrivateMessage('');
-            document.querySelector('.send-private-message').value = '';
-        }
-    };
-
     const onSelectMessageToDelete = message => {
         message.private ? setDeleteMessage({
                 id: message.id,
@@ -43,11 +31,12 @@ const useMessages = (selectedUsername, socket) => {
     return [
         onChangeMessage,
         onChangePrivateMessage,
-        onSendPrivateMessage,
         onSelectMessageToDelete,
         onDeleteMessage,
         message,
-        setMessage
+        setMessage,
+        privateMessage,
+        setPrivateMessage
     ];
 };
 

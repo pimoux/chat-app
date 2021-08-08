@@ -25,6 +25,8 @@ const SignIn = () => {
                 <h1>Realtime Chat Application <span role="img" aria-label="emoji">💬</span></h1>
                 <h2>Created with React, Node and Socket.IO <span role="img" aria-label="emoji">❤️</span></h2>
                 <h2>Try it out right now! <span role="img" aria-label="emoji">⬇️️</span></h2>
+                <h4><span role="img" aria-label="emoji">✅️</span>: messages, private messages, images, private images, speech, private speech, delete messages</h4>
+                <h4><span role="img" aria-label="emoji">❌️</span>: room system, block users</h4>
             </div>
             <div className="join-chat">
                 <p className="chat-celeste">Bienvenue sur le chat céleste !</p>

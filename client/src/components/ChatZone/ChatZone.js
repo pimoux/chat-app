@@ -7,7 +7,7 @@ import MessageList from '../MessageList/MessageList'
 const ChatZone = ({
     onChangeMessage,
     onDeleteMessage,
-    onKeyPress,
+    onSendMessage,
     onUploadFile,
     onSelectMessageToDelete,
     messages,
@@ -25,7 +25,7 @@ const ChatZone = ({
           />
           <InputZone
             onChangeMessage={onChangeMessage}
-            onKeyPress={onKeyPress}
+            onSendMessage={onSendMessage}
             onUploadFile={onUploadFile}
             isSpeechActivated={isSpeechActivated}
           />
