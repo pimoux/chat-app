@@ -27,6 +27,7 @@ const Chat = ({location}) => {
         setIsPrivateSpeech,
         privateSpeechContent,
         setPrivateSpeechContent,
+        handleBlock,
     ] = useWebSockets(location);
 
     return (
@@ -55,6 +56,7 @@ const Chat = ({location}) => {
                 privateSpeechContent={privateSpeechContent}
                 setPrivateSpeechContent={setPrivateSpeechContent}
                 setIsSpeechActivated={setIsSpeechActivated}
+                handleBlock={handleBlock}
             />
         </div>
     );

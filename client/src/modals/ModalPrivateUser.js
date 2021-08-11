@@ -3,6 +3,7 @@ import Modal from 'react-modal';
 import customStyles from '../utils/modal-style';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {
+    faBan,
     faMicrophone,
     faPaperclip,
     faPaperPlane,
@@ -21,9 +22,11 @@ const ModalPrivateUser = ({
     privateSpeechContent,
     setPrivateSpeechContent,
     onSelectUsername,
-    setIsSpeechActivated
+    setIsSpeechActivated,
+    handleBlock,
 }) => {
-    const [toggleSpeech, onRequestClose] = usePrivateSpeech(isPrivateSpeech, setIsPrivateSpeech,
+    const [toggleSpeech, onRequestClose] = usePrivateSpeech(isPrivateSpeech,
+        setIsPrivateSpeech,
         privateSpeechContent, setPrivateSpeechContent, isOpen, setIsOpen,
         onChangePrivateMessage, onSelectUsername, setIsSpeechActivated);
     return <Modal
@@ -34,7 +37,16 @@ const ModalPrivateUser = ({
         ariaHideApp={false}
     >
         <div className="modal-user">
-            <p>Send a private message to {selectedUsername}</p>
+            <p className="private-title">Send a private message
+                to {selectedUsername} &nbsp;
+                <div className="ban-container"
+                     onClick={() => {
+                         handleBlock();
+                         setIsOpen(false);
+                     }}>
+                    <FontAwesomeIcon icon={faBan} className="ban"/>
+                </div>
+            </p>
             <div className="private-actions">
                 <label htmlFor="send-private-image">
                     <FontAwesomeIcon icon={faPaperclip}

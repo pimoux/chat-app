@@ -1,6 +1,8 @@
-import React, {useState} from 'react';
-import './UserListItem.css';
-import ModalPrivateUser from '../../modals/ModalPrivateUser';
+import React, { useState } from 'react'
+import './UserListItem.css'
+import ModalPrivateUser from '../../modals/ModalPrivateUser'
+import ModalBlock from '../../modals/ModalBlock'
+import ModalDisconnect from '../../modals/ModalDisconnect'
 
 const UserListItem = ({
     users,
@@ -14,9 +16,11 @@ const UserListItem = ({
     setIsPrivateSpeech,
     privateSpeechContent,
     setPrivateSpeechContent,
-    setIsSpeechActivated
+    setIsSpeechActivated,
+    handleBlock
 }) => {
-    const [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(false)
+
     return (
         <div className="user-list-item">
             <h3 className="user-title">Users ({users.length})</h3>
@@ -24,31 +28,45 @@ const UserListItem = ({
                 return (
                     <div key={i}>
                         {user.name === name ?
-                            (<p className="user you" key={i}>{user.name}</p>) :
-                            (<>
-                                <p className="user" key={i} onClick={(e) => {
-                                    setIsOpen(true);
-                                    onSelectUsername(e);
-                                }}>{user.name}</p>
-                            </>)}
+                            (<p className="user you">{user.name}</p>) :
+                            (<p className={user.acceptMessagesBy.find(
+                                username => username === name) ?
+                                'user' : 'user blocked'}
+                                onClick={(e) => {
+                                    setIsOpen(true)
+                                    onSelectUsername(e)
+                                }}>{user.name}</p>)}
                     </div>
-                );
+                )
             })}
-            <ModalPrivateUser onChangePrivateMessage={onChangePrivateMessage}
-                              onSendPrivateMessage={onSendPrivateMessage}
-                              onPrivateUploadFiles={onPrivateUploadFiles}
-                              onSelectUsername={onSelectUsername}
-                              selectedUsername={selectedUsername}
-                              setIsOpen={setIsOpen}
-                              isOpen={isOpen}
-                              isPrivateSpeech={isPrivateSpeech}
-                              setIsPrivateSpeech={setIsPrivateSpeech}
-                              privateSpeechContent={privateSpeechContent}
-                              setPrivateSpeechContent={setPrivateSpeechContent}
-                              setIsSpeechActivated={setIsSpeechActivated}
-            />
+            {selectedUsername ?
+            users.find(user => user.name === selectedUsername)
+            .acceptMessagesBy
+            .find(username => username === name) ?
+                <ModalPrivateUser
+                    onChangePrivateMessage={onChangePrivateMessage}
+                    onSendPrivateMessage={onSendPrivateMessage}
+                    onPrivateUploadFiles={onPrivateUploadFiles}
+                    onSelectUsername={onSelectUsername}
+                    selectedUsername={selectedUsername}
+                    setIsOpen={setIsOpen}
+                    isOpen={isOpen}
+                    isPrivateSpeech={isPrivateSpeech}
+                    setIsPrivateSpeech={setIsPrivateSpeech}
+                    privateSpeechContent={privateSpeechContent}
+                    setPrivateSpeechContent={setPrivateSpeechContent}
+                    setIsSpeechActivated={setIsSpeechActivated}
+                    handleBlock={handleBlock}
+                /> :
+                <ModalBlock isOpen={isOpen}
+                            setIsOpen={setIsOpen}
+                            handleBlock={handleBlock}
+                            selectedUsername={selectedUsername}
+                /> :
+                <ModalDisconnect isOpen={isOpen} setIsOpen={setIsOpen} />
+            }
         </div>
-    );
-};
+    )
+}
 
 export default UserListItem;

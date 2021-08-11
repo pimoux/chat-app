@@ -75,3 +75,29 @@
     opacity: 0;
     transform: translateY(-100px);
 }
+
+.private-title{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ban-container{
+    padding: 0.25rem;
+    background-color: black;
+    border-radius: 100px;
+    cursor: pointer;
+}
+
+.ban{
+    color: red;
+}
+
+.blocked{
+    opacity: 0.3;
+}
+
+.modal-close{
+    text-decoration: underline;
+    cursor: pointer;
+}

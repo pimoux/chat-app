@@ -10,6 +10,7 @@ let socket;
 const useWebSockets = (location) => {
     const [name, setName] = useState('');
     const [selectedUsername, setSelectedUsername] = useState('');
+    const [disconnectedUsername, setDisconnectedUsername] = useState('');
     const [messages, setMessages] = useState([]);
     const [users, setUsers] = useState([]);
     const [
@@ -68,11 +69,24 @@ const useWebSockets = (location) => {
             setUsers(user);
         });
 
+        socket.on('handleBlock', (user) => {
+            setUsers(user);
+        })
+
+        socket.on('handle-disconnect', (username) => {
+            setDisconnectedUsername(username);
+            setTimeout(() => setDisconnectedUsername(''), 0);
+        })
+
         //avoid lag
         return () => {
             socket.off();
         };
     }, [messages]);
+
+    useEffect(() => {
+        selectedUsername === disconnectedUsername && setSelectedUsername('');
+    }, [disconnectedUsername, selectedUsername])
 
     const onSendMessage = e => {
         e.preventDefault();
@@ -104,6 +118,14 @@ const useWebSockets = (location) => {
             : setSelectedUsername('');
     };
 
+    const handleBlock = () => {
+        users.find(user => user.name === selectedUsername)
+        .acceptMessagesBy
+        .find(username => username === name) ?
+            socket.emit('trigger-block', {name, recipient: selectedUsername}) :
+            socket.emit('trigger-accept', {name, recipient: selectedUsername});
+    };
+
     return [
         name,
         selectedUsername,
@@ -124,6 +146,7 @@ const useWebSockets = (location) => {
         setIsPrivateSpeech,
         privateSpeechContent,
         setPrivateSpeechContent,
+        handleBlock,
     ];
 };
 
