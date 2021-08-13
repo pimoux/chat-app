@@ -1,15 +1,16 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import './Message.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import ModalChoice from '../../modals/ModalChoice'
+import ChatContext from '../../context/ChatContext'
 
-const Message = ({
-    message,
-    name,
-    onSelectMessageToDelete,
-    onDeleteMessage,
-}) => {
+const Message = ({message, name}) => {
+    const {
+        onSelectMessageToDelete,
+        onDeleteMessage
+    } = useContext(ChatContext);
+
     const [isOpen, setIsOpen] = useState(false)
     const rightName = name.trim().toLowerCase()
     const messageSentByCurrentUser = message.user === rightName

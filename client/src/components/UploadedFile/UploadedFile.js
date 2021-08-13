@@ -1,15 +1,12 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import './UploadedFile.css'
 import bytesToSize from '../../utils/bytes-conversion'
 import ModalImage from '../../modals/ModalImage'
 import ModalChoice from '../../modals/ModalChoice'
+import ChatContext from '../../context/ChatContext'
 
-const UploadedFile = ({
-    message,
-    name,
-    onSelectMessageToDelete,
-    onDeleteMessage,
-}) => {
+const UploadedFile = ({message, name}) => {
+    const { onSelectMessageToDelete } = useContext(ChatContext);
     const [isOpen, setIsOpen] = useState(false)
     const [isOpenChoice, setIsOpenChoice] = useState(false);
     const bytes = bytesToSize(message.fileInfo.size)
@@ -35,9 +32,7 @@ const UploadedFile = ({
                 </div>
                 <p className="date">{message.date}</p>
                 <ModalImage url={message.url} isOpen={isOpen} setIsOpen={setIsOpen}/>
-                <ModalChoice onDeleteMessage={onDeleteMessage}
-                             onSelectMessageToDelete={onSelectMessageToDelete}
-                             isOpen={isOpenChoice} setIsOpen={setIsOpenChoice} />
+                <ModalChoice isOpen={isOpenChoice} setIsOpen={setIsOpenChoice} />
             </div>
             :
             <div className="message-container start">
@@ -73,9 +68,7 @@ const UploadedFile = ({
                 </div>
                 <p className="date">{message.date}</p>
                 <ModalImage url={message.url} isOpen={isOpen} setIsOpen={setIsOpen}/>
-                <ModalChoice onDeleteMessage={onDeleteMessage}
-                             onSelectMessageToDelete={onSelectMessageToDelete}
-                             isOpen={isOpenChoice} setIsOpen={setIsOpenChoice} />
+                <ModalChoice isOpen={isOpenChoice} setIsOpen={setIsOpenChoice} />
             </div>
             :
             <div className="message-container start">

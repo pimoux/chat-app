@@ -1,13 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Modal from 'react-modal'
 import customStyles from '../utils/modal-style'
+import ChatContext from '../context/ChatContext'
 
-const ModalChoice = ({
-    isOpen,
-    setIsOpen,
-    onSelectMessageToDelete,
-    onDeleteMessage,
-}) => {
+const ModalChoice = ({ isOpen, setIsOpen }) => {
+
+    const {onSelectMessageToDelete, onDeleteMessage} = useContext(ChatContext);
+
     return (<Modal
       isOpen={isOpen}
       style={customStyles}

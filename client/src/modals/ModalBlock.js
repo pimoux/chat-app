@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react'
 import Modal from 'react-modal';
 import customStyles from '../utils/modal-style';
+import ChatContext from '../context/ChatContext'
 
 const ModalBlock = ({
     isOpen,
-    setIsOpen,
-    selectedUsername,
-    handleBlock,
+    setIsOpen
 }) => {
+
+    const {handleBlock, selectedUsername} = useContext(ChatContext);
+
     return (<Modal
         isOpen={isOpen}
         style={customStyles}

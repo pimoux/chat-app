@@ -1,18 +1,20 @@
-import {useEffect} from 'react';
+import { useContext, useEffect } from 'react'
+import ChatContext from '../../context/ChatContext'
 
 let recognition;
 
-const usePrivateSpeech = (
-    isPrivateSpeech,
-    setIsPrivateSpeech,
-    privateSpeechContent,
-    setPrivateSpeechContent,
-    isOpen,
-    setIsOpen,
-    onChangePrivateMessage,
-    onSelectUsername,
-    setIsSpeechActivated
-) => {
+const usePrivateSpeech = (isOpen, setIsOpen) => {
+
+    const {
+        isPrivateSpeech,
+        setIsPrivateSpeech,
+        privateSpeechContent,
+        setPrivateSpeechContent,
+        setPrivateMessage,
+        onSelectUsername,
+        setIsSpeechActivated
+    } = useContext(ChatContext);
+
     const toggleSpeech = () => {
         if (!isPrivateSpeech) {
             if (privateSpeechContent.length) {
@@ -32,7 +34,7 @@ const usePrivateSpeech = (
         setPrivateSpeechContent('');
         onSelectUsername(null);
         setIsSpeechActivated(false);
-        onChangePrivateMessage('')
+        setPrivateMessage('')
     };
 
     useEffect(() => {
@@ -58,12 +60,12 @@ const usePrivateSpeech = (
     useEffect(() => {
         if (isOpen && isPrivateSpeech) {
             setTimeout(() => {
-                onChangePrivateMessage(privateSpeechContent);
+                setPrivateMessage(privateSpeechContent);
                 document.querySelector(
                     '#send-private-message').value = privateSpeechContent;
-            }, 1000);
+            }, 0);
         }
-    }, [privateSpeechContent, onChangePrivateMessage, isOpen, isPrivateSpeech]);
+    }, [privateSpeechContent, setPrivateMessage, isOpen, isPrivateSpeech]);
 
     return [toggleSpeech, onRequestClose];
 };

@@ -1,24 +1,13 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import './UserListItem.css'
 import ModalPrivateUser from '../../modals/ModalPrivateUser'
 import ModalBlock from '../../modals/ModalBlock'
 import ModalDisconnect from '../../modals/ModalDisconnect'
+import ChatContext from '../../context/ChatContext'
 
-const UserListItem = ({
-    users,
-    name,
-    onChangePrivateMessage,
-    onSendPrivateMessage,
-    onSelectUsername,
-    onPrivateUploadFiles,
-    selectedUsername,
-    isPrivateSpeech,
-    setIsPrivateSpeech,
-    privateSpeechContent,
-    setPrivateSpeechContent,
-    setIsSpeechActivated,
-    handleBlock
-}) => {
+const UserListItem = () => {
+    const { users, name, onSelectUsername,
+        selectedUsername } = useContext(ChatContext)
     const [isOpen, setIsOpen] = useState(false)
 
     return (
@@ -40,33 +29,15 @@ const UserListItem = ({
                 )
             })}
             {selectedUsername ?
-            users.find(user => user.name === selectedUsername)
-            .acceptMessagesBy
-            .find(username => username === name) ?
-                <ModalPrivateUser
-                    onChangePrivateMessage={onChangePrivateMessage}
-                    onSendPrivateMessage={onSendPrivateMessage}
-                    onPrivateUploadFiles={onPrivateUploadFiles}
-                    onSelectUsername={onSelectUsername}
-                    selectedUsername={selectedUsername}
-                    setIsOpen={setIsOpen}
-                    isOpen={isOpen}
-                    isPrivateSpeech={isPrivateSpeech}
-                    setIsPrivateSpeech={setIsPrivateSpeech}
-                    privateSpeechContent={privateSpeechContent}
-                    setPrivateSpeechContent={setPrivateSpeechContent}
-                    setIsSpeechActivated={setIsSpeechActivated}
-                    handleBlock={handleBlock}
-                /> :
-                <ModalBlock isOpen={isOpen}
-                            setIsOpen={setIsOpen}
-                            handleBlock={handleBlock}
-                            selectedUsername={selectedUsername}
-                /> :
-                <ModalDisconnect isOpen={isOpen} setIsOpen={setIsOpen} />
+                users.find(user => user.name === selectedUsername)
+                .acceptMessagesBy
+                .find(username => username === name) ?
+                    <ModalPrivateUser isOpen={isOpen} setIsOpen={setIsOpen}/> :
+                    <ModalBlock isOpen={isOpen} setIsOpen={setIsOpen}/> :
+                <ModalDisconnect isOpen={isOpen} setIsOpen={setIsOpen}/>
             }
         </div>
     )
 }
 
-export default UserListItem;
+export default UserListItem

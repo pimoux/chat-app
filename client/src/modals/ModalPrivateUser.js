@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import Modal from 'react-modal';
 import customStyles from '../utils/modal-style';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
@@ -8,27 +8,19 @@ import {
     faPaperclip,
     faPaperPlane,
 } from '@fortawesome/free-solid-svg-icons';
-import usePrivateSpeech from '../hooks/usePrivateSpeech';
+import usePrivateSpeech from '../hooks/speech/usePrivateSpeech';
+import ChatContext from '../context/ChatContext';
 
-const ModalPrivateUser = ({
-    isOpen,
-    setIsOpen,
-    selectedUsername,
-    onPrivateUploadFiles,
-    onChangePrivateMessage,
-    onSendPrivateMessage,
-    isPrivateSpeech,
-    setIsPrivateSpeech,
-    privateSpeechContent,
-    setPrivateSpeechContent,
-    onSelectUsername,
-    setIsSpeechActivated,
-    handleBlock,
-}) => {
-    const [toggleSpeech, onRequestClose] = usePrivateSpeech(isPrivateSpeech,
-        setIsPrivateSpeech,
-        privateSpeechContent, setPrivateSpeechContent, isOpen, setIsOpen,
-        onChangePrivateMessage, onSelectUsername, setIsSpeechActivated);
+const ModalPrivateUser = ({isOpen, setIsOpen}) => {
+    const {
+        selectedUsername,
+        onPrivateUploadFile,
+        setPrivateMessage,
+        onSendPrivateMessage,
+        isPrivateSpeech,
+        handleBlock,
+    } = useContext(ChatContext);
+    const [toggleSpeech, onRequestClose] = usePrivateSpeech(isOpen, setIsOpen);
     return <Modal
         isOpen={isOpen}
         style={customStyles}
@@ -37,8 +29,10 @@ const ModalPrivateUser = ({
         ariaHideApp={false}
     >
         <div className="modal-user">
-            <p className="private-title">Send a private message
-                to {selectedUsername} &nbsp;
+            <div className="private-title-container">
+                <p className="private-title">Send a private message
+                    to {selectedUsername} &nbsp;
+                </p>
                 <div className="ban-container"
                      onClick={() => {
                          handleBlock();
@@ -46,7 +40,7 @@ const ModalPrivateUser = ({
                      }}>
                     <FontAwesomeIcon icon={faBan} className="ban"/>
                 </div>
-            </p>
+            </div>
             <div className="private-actions">
                 <label htmlFor="send-private-image">
                     <FontAwesomeIcon icon={faPaperclip}
@@ -64,17 +58,17 @@ const ModalPrivateUser = ({
                     name="send-private-image"
                     id="send-private-image"
                     accept="image/png, image/jpg, image/jpeg, image/gif"
-                    onChange={(e) => onPrivateUploadFiles(e)}
+                    onChange={(e) => onPrivateUploadFile(e)}
                 />
                 <input
                     type="text"
                     id="send-private-message"
                     className="send-private-message"
-                    onChange={(e) => onChangePrivateMessage(e.target.value)}
+                    onChange={(e) => setPrivateMessage(e.target.value)}
                     onKeyPress={(e) => e.key === 'Enter' ? onSendPrivateMessage(
                         e) : null}
                 />
-                <button type="submit"
+                <button type="submit" className="mobile"
                         onClick={(e) => onSendPrivateMessage(e)}>
                     <FontAwesomeIcon icon={faPaperPlane} className="big-font"/>
                 </button>

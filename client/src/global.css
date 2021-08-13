@@ -10,6 +10,10 @@ body {
     font-family: 'Montserrat', sans-serif;
 }
 
+.mobile{
+    display: none;
+}
+
 /* Remove scrollbars */
 
 .chat::-webkit-scrollbar,
@@ -18,4 +22,12 @@ body {
 .text-zone::-webkit-scrollbar,
 .chat-zone::-webkit-scrollbar {
     display: none;
+}
+
+/* Media queries */
+
+@media screen and (max-width: 600px){
+    .mobile{
+        display: block;
+    }
 }
