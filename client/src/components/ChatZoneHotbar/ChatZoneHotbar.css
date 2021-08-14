@@ -1,4 +1,4 @@
-.chat-zone-hotbar{
+.chat-zone-hotbar {
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -8,6 +8,6 @@
     text-align: center;
 }
 
-.chat-zone-hotbar-title{
+.chat-zone-hotbar-title {
     margin-left: 1rem;
 }

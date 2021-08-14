@@ -68,7 +68,7 @@ const ModalPrivateUser = ({isOpen, setIsOpen}) => {
                     onKeyPress={(e) => e.key === 'Enter' ? onSendPrivateMessage(
                         e) : null}
                 />
-                <button type="submit" className="mobile"
+                <button type="submit" className="mobile self-end"
                         onClick={(e) => onSendPrivateMessage(e)}>
                     <FontAwesomeIcon icon={faPaperPlane} className="big-font"/>
                 </button>

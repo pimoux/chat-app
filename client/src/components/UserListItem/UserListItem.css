@@ -6,6 +6,7 @@
     overflow-y: scroll;
     flex-direction: column;
     text-align: center;
+    background-color: #FFF;
 }
 
 .user-title {
@@ -29,7 +30,7 @@
     flex-direction: column;
 }
 
-.modal-user p{
+.modal-user p {
     text-align: center;
 }
 
@@ -44,9 +45,10 @@
     justify-content: center;
 }
 
-#send-private-message{
+#send-private-message {
     display: table-cell;
     width: 100%;
+    min-width: 100px;
     height: 5vh;
     font-size: 1.25em;
     font-family: 'Montserrat', sans-serif;
@@ -59,12 +61,12 @@
     font-family: 'Montserrat', sans-serif;
 }
 
-.very-big-font{
+.very-big-font {
     font-size: 1.75rem;
     cursor: pointer;
 }
 
-.private-actions button{
+.private-actions button {
     padding: 0.4rem;
 }
 
@@ -84,34 +86,39 @@
     transform: translateY(-100px);
 }
 
-.private-title{
+.private-title {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.ban-container{
+.ban-container {
     padding: 0.25rem;
     background-color: black;
     border-radius: 100px;
     cursor: pointer;
 }
 
-.ban{
+.ban {
     color: red;
 }
 
-.blocked{
+.blocked {
     opacity: 0.3;
 }
 
-.modal-close{
+.modal-close {
     text-decoration: underline;
     cursor: pointer;
 }
 
-.private-title-container{
+.private-title-container {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.logout{
+    padding-top: 1rem;
+    padding-bottom: 1rem;
 }

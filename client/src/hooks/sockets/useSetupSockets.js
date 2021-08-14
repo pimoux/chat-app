@@ -1,10 +1,27 @@
 import io from 'socket.io-client';
 import queryString from 'querystring';
 import {useCallback, useEffect} from 'react';
+import {closeRoomList, closeUserList} from '../../utils/sidebars';
 
-let socket;
+let socket, cooldown;
 
 const useSetupSockets = (location, setName, messages, setMessages, setUsers, setDisconnectedUsername) => {
+
+    window.addEventListener('resize', (e) => {
+        //limit massive executions of resize event
+        clearTimeout(cooldown);
+        cooldown = setTimeout(() => {
+            if (e.currentTarget.innerWidth >= 640) {
+                document.querySelector('.room-list-item').style.width = '12.5vw';
+                document.querySelector('.user-list-item').style.width = '12.5vw';
+            } else if (e.currentTarget.innerWidth < 640 &&
+                ((document.querySelector('.room-list-item').style.width === '12.5vw') ||
+                    document.querySelector('.user-list-item').style.width === '12.5vw')) {
+                closeUserList();
+                closeRoomList();
+            }
+        }, 200);
+    }, true);
 
     const memoizedName = useCallback((name) => {
         setName(name);
@@ -38,7 +55,7 @@ const useSetupSockets = (location, setName, messages, setMessages, setUsers, set
         });
 
         return () => {
-            socket.emit('disconnect');
+            socket.disconnect();
             socket.off();
         };
 

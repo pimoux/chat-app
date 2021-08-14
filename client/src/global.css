@@ -10,8 +10,12 @@ body {
     font-family: 'Montserrat', sans-serif;
 }
 
-.mobile{
+.mobile {
     display: none;
+}
+
+.desktop {
+    display: block;
 }
 
 /* Remove scrollbars */
@@ -26,8 +30,72 @@ body {
 
 /* Media queries */
 
-@media screen and (max-width: 600px){
-    .mobile{
+@media screen and (max-width: 640px) {
+
+    .desktop {
+        display: none;
+    }
+
+    .mobile {
         display: block;
+    }
+
+    .private-actions {
+        width: 90vw;
+    }
+
+    .chat {
+        flex-direction: column;
+    }
+
+    .chat-zone-hotbar{
+        justify-content: space-between;
+    }
+
+    .room-list-item, .user-list-item {
+        height: 100%;
+        width: 0;
+        position: fixed;
+        z-index: 50;
+        top: 0;
+        overflow-x: hidden;
+        transition: 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+    }
+
+    .user-list-item {
+        right: 0;
+    }
+
+    .room-list-item {
+        left: 0;
+    }
+
+    .arrow-left-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.25rem;
+        padding-top: 1rem;
+    }
+
+    .arrow-left-container .room-title {
+        padding-right: 1rem;
+    }
+
+    .hotbar-arrow-right {
+        padding-left: 1rem;
+    }
+
+    .hotbar-arrow-left {
+        padding-right: 0.5rem;
+    }
+
+    .user-title-mobile {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding-top: 1rem;
     }
 }
