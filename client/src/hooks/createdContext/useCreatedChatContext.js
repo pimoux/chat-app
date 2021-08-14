@@ -9,6 +9,8 @@ import useSetupSockets from '../sockets/useSetupSockets';
 
 const useCreatedChatContext = (location) => {
     const [name, setName] = useState('');
+    const [room, setRoom] = useState('');
+    const [rooms, setRooms] = useState([]);
     const [selectedUsername, setSelectedUsername] = useState('');
     const [disconnectedUsername, setDisconnectedUsername] = useState('');
     const [messages, setMessages] = useState([]);
@@ -24,10 +26,12 @@ const useCreatedChatContext = (location) => {
     const [deleteMessage, setDeleteMessage] = useState('');
 
     const [socket] = useSetupSockets(
-        location, setName, messages, setMessages, setUsers,
+        location, setName, setRoom, setRooms, messages, setMessages, setUsers,
         setDisconnectedUsername,
     );
-    const [handleBlock] = useHandleBlock(users, name, selectedUsername, socket);
+    const [handleBlock] = useHandleBlock(
+        users, name, room, selectedUsername, socket
+    );
     const [onSelectUsername] = useSelectUsername(
         selectedUsername, setSelectedUsername, disconnectedUsername,
     );
@@ -50,6 +54,10 @@ const useCreatedChatContext = (location) => {
     const contextValue = {
         name,
         setName,
+        room,
+        setRoom,
+        rooms,
+        setRooms,
         selectedUsername,
         setSelectedUsername,
         disconnectedUsername,

@@ -35,8 +35,10 @@ const UserListItem = () => {
                                 'user' : 'user blocked'}
                                 onClick={(e) => {
                                     setIsOpen(true);
-                                    closeUserList();
-                                    closeRoomList();
+                                    if(window.innerWidth < 640){
+                                        closeUserList();
+                                        closeRoomList();
+                                    }
                                     onSelectUsername(e);
                                 }}>{user.name}</p>)}
                     </div>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import './ChatZoneHotbar.css';
 import {
     faArrowLeft,
@@ -6,8 +6,11 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {openRoomList, openUserList} from '../../utils/sidebars';
+import ChatContext from '../../context/ChatContext';
 
 const ChatZoneHotbar = () => {
+
+    const { room } = useContext(ChatContext);
 
     return (
         <div className="chat-zone-hotbar">
@@ -16,7 +19,7 @@ const ChatZoneHotbar = () => {
                                  className="arrow-right mobile big-font"
                                  onClick={() => openRoomList()}/>
             </div>
-            <p className="chat-zone-hotbar-title">ROOM_NAME</p>
+            <p className="chat-zone-hotbar-title">{room}</p>
             <div className="hotbar-arrow-left">
                 <div className="hotbar-arrow-left">
                     <FontAwesomeIcon icon={faArrowLeft}

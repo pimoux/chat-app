@@ -4,10 +4,11 @@ import {Link} from "react-router-dom";
 
 const SignIn = () => {
     const [name, setName] = useState('')
+    const [room, setRoom] = useState('');
     const [error, setError] = useState(false);
 
     const validate = (e) => {
-        if (name) {
+        if (name || room) {
             setError(false)
         } else {
             e.preventDefault();
@@ -26,13 +27,17 @@ const SignIn = () => {
             </div>
             <div className="join-chat">
                 <p className="chat-celeste">Bienvenue sur le chat céleste !</p>
-                {error ? <p className="hasError">Vous devez renseigner un nom d'utilisateur</p> :
+                {error ? <p className="hasError">Vous devez renseigner un nom d'utilisateur et un salon à rejoindre</p> :
                 <p className="hasNotError">v</p>}
                 <label htmlFor="input-username">
                     <input type='text' name="username" id="input-username" placeholder="username"
                            onChange={(e) => setName(e.target.value)}/>
                 </label>
-                <Link to={`/chat?name=${name}`} onClick={validate}>
+                <label htmlFor="input-room">
+                    <input type='text' name="room" id="input-room" placeholder="room"
+                           onChange={(e) => setRoom(e.target.value)}/>
+                </label>
+                <Link to={`/chat?name=${name}&room=${room}`} onClick={validate}>
                     <button type="submit" id="submit-user">Rejoindre</button>
                 </Link>
             </div>

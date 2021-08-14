@@ -3,6 +3,10 @@ import React from 'react'
 export default React.createContext({
     name: '',
     setName: (name) => {},
+    room: '',
+    setRoom: (room) => {},
+    rooms: [],
+    setRooms: (rooms) => {},
     selectedUsername: '',
     setSelectedUsername: (username) => {},
     disconnectedUsername: '',

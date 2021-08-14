@@ -21,27 +21,31 @@ const {
     getAllUsers,
     blockUser,
     unblockUser,
+    getRooms
 } = require('./users.js');
 
 io.on('connection', (socket) => {
-    socket.on('join', ({name}, callback) => {
-        const {user, error} = addUser({id: socket.id, name});
+    socket.on('join', ({name, room}, callback) => {
+        const {user, error} = addUser({id: socket.id, name, room});
 
         if (error) return callback(error);
+
+        socket.join(user.room);
 
         const welcomedSentences = [
             `Un ${user.name} sauvage nous a rejoint!`,
             `Content de te voir, ${user.name}`,
-            `Voici l'atterrissage d'un ${user.name} dans ce chat`,
-            `${user.name} a rejoint le groupe`,
+            `Voici l'atterrissage d'un ${user.name} dans ce salon`,
+            `${user.name} a rejoint le salon`,
             `bienvenue ${user.name}, j'espère que tu nous a apporté des spaghettis bolognaise!`,
         ];
         const text = welcomedSentences[Math.floor(Math.random() * welcomedSentences.length)];
         const date = new Date().toLocaleTimeString(['fr-FR'],
             {hour: '2-digit', minute: '2-digit'});
 
-        io.emit('users', getAllUsers());
-        io.emit('message', {
+        io.emit('room-list', getRooms());
+        io.to(user.room).emit('users', getAllUsers().filter(u => u.room === user.room));
+        io.to(user.room).emit('message', {
             id: uuidv4(),
             user: 'God',
             text: text,
@@ -71,13 +75,13 @@ io.on('connection', (socket) => {
     });
 
     socket.on('trigger-delete-message', ({id, isPrivate, recipient}) => {
+        const user = getUser(socket.id);
         if (isPrivate) {
-            const user = getUser(socket.id);
-            const recipientId = getAllUsers().
-                find(user => user.name === recipient).id;
+            const recipientId = getAllUsers()
+            .find(user => user.name === recipient).id;
             io.to(user.id).to(recipientId).emit('delete-message', id);
         } else {
-            io.emit('delete-message', id);
+            io.to(user.room).emit('delete-message', id);
         }
     });
 
@@ -102,10 +106,10 @@ io.on('connection', (socket) => {
 
     socket.on('send-private-message', ({content, recipient}) => {
         const user = getUser(socket.id);
-        const senderIndex = user.acceptMessagesBy.findIndex(
-            name => name === recipient);
-        const recipientId = getAllUsers().
-            find(user => user.name === recipient).id;
+        const senderIndex = user.acceptMessagesBy
+        .findIndex(name => name === recipient);
+        const recipientId = getAllUsers()
+        .find(user => user.name === recipient).id;
         const date = new Date().toLocaleTimeString(
             ['fr-FR'], {hour: '2-digit', minute: '2-digit'},
         );
@@ -157,7 +161,20 @@ io.on('connection', (socket) => {
             recipient: recipient,
             type: 'image',
         });
+    });
 
+    socket.on('trigger-block', ({name, room, recipient}) => {
+        blockUser(name, recipient);
+        io.to(room).emit('handleBlock',
+            getAllUsers().filter(user => user.room === room)
+        );
+    });
+
+    socket.on('trigger-accept', ({name, room, recipient}) => {
+        unblockUser(name, recipient);
+        io.to(room).emit('handleBlock',
+            getAllUsers().filter(user => user.room === room)
+        );
     });
 
     socket.on('disconnect', () => {
@@ -166,8 +183,9 @@ io.on('connection', (socket) => {
             {hour: '2-digit', minute: '2-digit'});
         if (user) {
             io.emit('handle-disconnect', user.name);
-            io.emit('users', getAllUsers());
-            io.emit('message', {
+            io.to(user.room).emit('users', getAllUsers().filter(u => u.room === user.room));
+            io.emit('room-list', getRooms());
+            io.to(user.room).emit('message', {
                 id: uuidv4(),
                 user: 'God',
                 text: `${user.name} nous a quitté :(`,
@@ -176,16 +194,6 @@ io.on('connection', (socket) => {
                 type: 'text',
             });
         }
-    });
-
-    socket.on('trigger-block', ({name, recipient}) => {
-        blockUser(name, recipient);
-        io.emit('handleBlock', getAllUsers());
-    });
-
-    socket.on('trigger-accept', ({name, recipient}) => {
-        unblockUser(name, recipient);
-        io.emit('handleBlock', getAllUsers());
     });
 });
 

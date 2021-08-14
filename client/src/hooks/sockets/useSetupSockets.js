@@ -5,7 +5,7 @@ import {closeRoomList, closeUserList} from '../../utils/sidebars';
 
 let socket, cooldown;
 
-const useSetupSockets = (location, setName, messages, setMessages, setUsers, setDisconnectedUsername) => {
+const useSetupSockets = (location, setName, setRoom, setRooms, messages, setMessages, setUsers, setDisconnectedUsername) => {
 
     window.addEventListener('resize', (e) => {
         //limit massive executions of resize event
@@ -27,6 +27,14 @@ const useSetupSockets = (location, setName, messages, setMessages, setUsers, set
         setName(name);
     }, [setName]);
 
+    const memoizedRoom = useCallback((room) => {
+        setRoom(room);
+    }, [setRoom]);
+
+    const memoizedRooms = useCallback((rooms) => {
+        setRooms(rooms);
+    }, [setRooms]);
+
     const memoizedDisconnectedUsername = useCallback((username) => {
         setDisconnectedUsername(username);
     }, [setDisconnectedUsername]);
@@ -39,14 +47,15 @@ const useSetupSockets = (location, setName, messages, setMessages, setUsers, set
         setUsers(users);
     }, [setUsers])
 
-    const ENDPOINT = 'http://localhost:5000';
+    const ENDPOINT = 'localhost:5000';
     useEffect(() => {
         socket = io(ENDPOINT);
-        const {name} = queryString.parse(location.search, '?');
+        const { name, room } = queryString.parse(location.search.split('?')[1]);
         memoizedName(name);
+        memoizedRoom(room);
         document.title = name.toString();
 
-        socket.emit('join', {name}, (error) => {
+        socket.emit('join', {name, room}, (error) => {
             if (error) {
                 setTimeout(() => window.location = `http://localhost:3000`,
                     1000);
@@ -59,7 +68,7 @@ const useSetupSockets = (location, setName, messages, setMessages, setUsers, set
             socket.off();
         };
 
-    }, [ENDPOINT, location.search, memoizedName]);
+    }, [ENDPOINT, location.search, memoizedName, memoizedRoom]);
 
     useEffect(() => {
         socket.on('message', (message) => {
@@ -74,6 +83,10 @@ const useSetupSockets = (location, setName, messages, setMessages, setUsers, set
             memoizedUsers(user);
         });
 
+        socket.on('room-list', (rooms) => {
+            memoizedRooms(rooms);
+        })
+
         socket.on('handleBlock', (user) => {
             memoizedUsers(user);
         });
@@ -87,7 +100,7 @@ const useSetupSockets = (location, setName, messages, setMessages, setUsers, set
         return () => {
             socket.off();
         };
-    }, [messages, memoizedDisconnectedUsername, memoizedMessages, memoizedUsers]);
+    }, [messages, memoizedDisconnectedUsername, memoizedMessages, memoizedUsers, memoizedRooms]);
 
     return [socket];
 };

@@ -19,18 +19,18 @@
     background-color: lightgray;
 }
 
-#input-username{
+#input-username, #input-room{
     font-size: 1.25em;
     outline: none;
     font-family: 'Montserrat', sans-serif;
     margin-bottom: 1rem;
 }
 
-#input-username:focus{
+#input-username:focus, #input-room:focus{
     border: 2px solid blue;
 }
 
-#input-username::placeholder{
+#input-username::placeholder, #input-room::placeholder{
     font-family: 'Montserrat', sans-serif;
 }
 
@@ -64,6 +64,8 @@
 .hasError{
     visibility: visible;
     color: darkred;
+    text-align: center;
+    padding: 0 1rem;
 }
 
 .hasNotError{
