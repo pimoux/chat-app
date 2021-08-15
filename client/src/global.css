@@ -18,6 +18,36 @@ body {
     display: block;
 }
 
+.confirm {
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
+    cursor: pointer;
+    padding: 0.5rem 2rem;
+    border-radius: 10px;
+}
+
+.confirm:hover {
+    color: #fff;
+    background-color: #bb2d3b;
+    border-color: #b02a37
+}
+
+.cancel {
+    color: #000;
+    background-color: #f8f9fa;
+    border-color: #f8f9fa;
+    cursor: pointer;
+    padding: 0.5rem 2rem;
+    border-radius: 10px;
+}
+
+.cancel:hover {
+    color: #000;
+    background-color: #f9fafb;
+    border-color: #f9fafb;
+}
+
 /* Remove scrollbars */
 
 .chat::-webkit-scrollbar,
@@ -48,7 +78,7 @@ body {
         flex-direction: column;
     }
 
-    .chat-zone-hotbar{
+    .chat-zone-hotbar {
         justify-content: space-between;
     }
 

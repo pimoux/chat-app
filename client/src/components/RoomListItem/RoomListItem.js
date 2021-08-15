@@ -6,20 +6,31 @@ import {closeRoomList} from '../../utils/sidebars';
 import ChatContext from '../../context/ChatContext';
 
 const RoomListItem = () => {
-    const { rooms } = useContext(ChatContext);
+    const {rooms, room} = useContext(ChatContext);
+    //const [isOpenRoom, setIsOpenRoom] = useState(false);
+    //const [selectedRoom, setSelectedRoom] = useState('');
     return (
         <div className="room-list-item">
             <div className="arrow-left-container mobile">
                 <FontAwesomeIcon icon={faArrowLeft} className="big-font"
                                  onClick={() => closeRoomList()}/>
-                <p className="room-title">Rooms</p>
+                <p className="room-title">Room list</p>
             </div>
             <div className="desktop">
-                <p className="room-title">Rooms</p>
+                <p className="room-title">Room list</p>
             </div>
-            {rooms.map((room, index) => {
-                return (<p key={index}>{room}</p>)
+            {rooms.map((roomName, index) => {
+                return roomName === room ?
+                    (<p className="underline" key={index}>{roomName}</p>) :
+                    (<p className="room-name" key={index} onClick={() => {
+                        //setIsOpenRoom(true);
+                        //setSelectedRoom(e.target.textContent);
+                    }}>{roomName}</p>);
             })}
+            {/*<ModalChangeRoom isOpen={isOpenRoom} setIsOpen={setIsOpenRoom}*/}
+            {/*                 nextRoom={selectedRoom}*/}
+            {/*                 resetSelectedRoom={() => setSelectedRoom('')}*/}
+            {/*/>*/}
         </div>
     );
 };

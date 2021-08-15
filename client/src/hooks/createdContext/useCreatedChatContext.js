@@ -51,6 +51,13 @@ const useCreatedChatContext = (location) => {
         privateMessage, setPrivateMessage, selectedUsername, socket,
     );
 
+    // const onChangeRoom = (nextRoom) => {
+    //     setRoom(nextRoom);
+    //     setTimeout(() => {
+    //         window.location.reload();
+    //     }, 500);
+    // }
+
     const contextValue = {
         name,
         setName,
@@ -93,6 +100,7 @@ const useCreatedChatContext = (location) => {
         onSelectMessageToDelete,
         onDeleteMessage,
         publicToggleSpeech,
+        //onChangeRoom
     };
 
     return [contextValue];

@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import ModalChoice from '../../modals/ModalChoice'
 import ChatContext from '../../context/ChatContext'
+import ReactEmoji from 'react-emoji';
 
 const Message = ({message, name}) => {
     const {
@@ -22,7 +23,7 @@ const Message = ({message, name}) => {
                         onSelectMessageToDelete(message)
                         setIsOpen(true)
                     }}>
-                        <p className="message-text white">{message.text}</p>
+                        <p className="message-text white">{ReactEmoji.emojify(message.text)}</p>
                     </div>
                     <p className="date">{message.date}</p>
                 </div>
@@ -35,7 +36,7 @@ const Message = ({message, name}) => {
             <div className="message-container start">
                 <p className="date">{message.date}</p>
                 <div className="message other">
-                    <p className="message-text dark">{message.text}</p>
+                    <p className="message-text dark">{ReactEmoji.emojify(message.text)}</p>
                 </div>
                 <p className="username pl-2">{message.user}</p>
             </div>
@@ -49,7 +50,7 @@ const Message = ({message, name}) => {
                     setIsOpen(true);
                 }}>
                     <p className="message-text white">
-                        {message.text} &nbsp;
+                        {ReactEmoji.emojify(message.text)} &nbsp;
                         <FontAwesomeIcon icon={faEnvelope}/>
                     </p>
                 </div>
@@ -64,7 +65,7 @@ const Message = ({message, name}) => {
                 <div className="message other private">
                     <p className="message-text dark">
                         <FontAwesomeIcon icon={faEnvelope}/> &nbsp;
-                        {message.text}
+                        {ReactEmoji.emojify(message.text)}
                     </p>
                 </div>
                 <p className="username pl-2">{message.user} whispers to you</p>

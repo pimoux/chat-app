@@ -17,12 +17,12 @@ const ModalChoice = ({ isOpen, setIsOpen }) => {
         <div className="modal-delete-message">
             <p className="center">Are you sure to delete this message ?</p>
             <div className="choice-delete-message">
-                <button className="cancel-delete-message" onClick={() => {
+                <button className="cancel" onClick={() => {
                     setIsOpen(false)
                     onSelectMessageToDelete('')
                 }}>No I don't want
                 </button>
-                <button className="confirm-delete-message" onClick={() => {
+                <button className="confirm" onClick={() => {
                     onDeleteMessage()
                     setIsOpen(false)
                 }}>Sure !

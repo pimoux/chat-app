@@ -5,7 +5,10 @@ import {closeRoomList, closeUserList} from '../../utils/sidebars';
 
 let socket, cooldown;
 
-const useSetupSockets = (location, setName, setRoom, setRooms, messages, setMessages, setUsers, setDisconnectedUsername) => {
+const useSetupSockets = (
+    location, setName, setRoom, setRooms, messages, setMessages, setUsers,
+    setDisconnectedUsername
+) => {
 
     window.addEventListener('resize', (e) => {
         //limit massive executions of resize event

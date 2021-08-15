@@ -21,7 +21,7 @@ const {
     getAllUsers,
     blockUser,
     unblockUser,
-    getRooms
+    getRooms,
 } = require('./users.js');
 
 io.on('connection', (socket) => {
@@ -39,12 +39,14 @@ io.on('connection', (socket) => {
             `${user.name} a rejoint le salon`,
             `bienvenue ${user.name}, j'espère que tu nous a apporté des spaghettis bolognaise!`,
         ];
-        const text = welcomedSentences[Math.floor(Math.random() * welcomedSentences.length)];
+        const text = welcomedSentences[Math.floor(
+            Math.random() * welcomedSentences.length)];
         const date = new Date().toLocaleTimeString(['fr-FR'],
             {hour: '2-digit', minute: '2-digit'});
 
         io.emit('room-list', getRooms());
-        io.to(user.room).emit('users', getAllUsers().filter(u => u.room === user.room));
+        io.to(user.room).
+            emit('users', getAllUsers().filter(u => u.room === user.room));
         io.to(user.room).emit('message', {
             id: uuidv4(),
             user: 'God',
@@ -57,6 +59,7 @@ io.on('connection', (socket) => {
 
     socket.on('send-message', (message, callback) => {
         const user = getUser(socket.id);
+        console.log(user.id);
         const date = new Date().toLocaleTimeString(['fr-FR'],
             {hour: '2-digit', minute: '2-digit'});
         const messageSent = {
@@ -77,8 +80,8 @@ io.on('connection', (socket) => {
     socket.on('trigger-delete-message', ({id, isPrivate, recipient}) => {
         const user = getUser(socket.id);
         if (isPrivate) {
-            const recipientId = getAllUsers()
-            .find(user => user.name === recipient).id;
+            const recipientId = getAllUsers().
+                find(user => user.name === recipient).id;
             io.to(user.id).to(recipientId).emit('delete-message', id);
         } else {
             io.to(user.room).emit('delete-message', id);
@@ -106,10 +109,10 @@ io.on('connection', (socket) => {
 
     socket.on('send-private-message', ({content, recipient}) => {
         const user = getUser(socket.id);
-        const senderIndex = user.acceptMessagesBy
-        .findIndex(name => name === recipient);
-        const recipientId = getAllUsers()
-        .find(user => user.name === recipient).id;
+        const senderIndex = user.acceptMessagesBy.findIndex(
+            name => name === recipient);
+        const recipientId = getAllUsers().
+            find(user => user.name === recipient).id;
         const date = new Date().toLocaleTimeString(
             ['fr-FR'], {hour: '2-digit', minute: '2-digit'},
         );
@@ -135,12 +138,12 @@ io.on('connection', (socket) => {
 
     socket.on('send-private-image', ({url, fileInfo, recipient}) => {
         const user = getUser(socket.id);
-        const senderIndex = user.acceptMessagesBy
-        .findIndex(name => name === recipient);
-        const recipientId = getAllUsers()
-        .find(user => user.name === recipient).id;
+        const senderIndex = user.acceptMessagesBy.findIndex(
+            name => name === recipient);
+        const recipientId = getAllUsers().
+            find(user => user.name === recipient).id;
         const date = new Date().toLocaleTimeString(
-            ['fr-FR'], {hour: '2-digit', minute: '2-digit'}
+            ['fr-FR'], {hour: '2-digit', minute: '2-digit'},
         );
         senderIndex !== -1 ? io.to(recipientId).to(user.id).emit('message', {
             id: uuidv4(),
@@ -166,14 +169,14 @@ io.on('connection', (socket) => {
     socket.on('trigger-block', ({name, room, recipient}) => {
         blockUser(name, recipient);
         io.to(room).emit('handleBlock',
-            getAllUsers().filter(user => user.room === room)
+            getAllUsers().filter(user => user.room === room),
         );
     });
 
     socket.on('trigger-accept', ({name, room, recipient}) => {
         unblockUser(name, recipient);
         io.to(room).emit('handleBlock',
-            getAllUsers().filter(user => user.room === room)
+            getAllUsers().filter(user => user.room === room),
         );
     });
 
@@ -183,7 +186,8 @@ io.on('connection', (socket) => {
             {hour: '2-digit', minute: '2-digit'});
         if (user) {
             io.emit('handle-disconnect', user.name);
-            io.to(user.room).emit('users', getAllUsers().filter(u => u.room === user.room));
+            io.to(user.room).
+                emit('users', getAllUsers().filter(u => u.room === user.room));
             io.emit('room-list', getRooms());
             io.to(user.room).emit('message', {
                 id: uuidv4(),

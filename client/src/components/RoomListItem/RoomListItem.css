@@ -14,3 +14,23 @@
     text-decoration: underline;
     font-size: 1.25rem;
 }
+
+.underline {
+    text-decoration: underline;
+}
+
+.room-name {
+    cursor: pointer;
+}
+
+/* MODAL */
+
+.modal-change-room {
+    display: flex;
+    flex-direction: column;
+}
+
+.choice-change-room {
+    display: flex;
+    justify-content: space-around;
+}
