@@ -15,7 +15,11 @@ const addMessageToHistory = (message) => {
  * @param {string} id - id of the message
  */
 const removeMessageFromHistory = (id) => {
-    messagesHistory.filter(message => message.id !== id);
+    messagesHistory.forEach((message, i) => {
+        if (message.id === id) {
+            messagesHistory.splice(i, 1);
+        }
+    })
 }
 
 module.exports = {

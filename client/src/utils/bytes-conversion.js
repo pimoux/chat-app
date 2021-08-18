@@ -1,3 +1,8 @@
+/**
+ * convert bytes into the right unit
+ * @param bytes - file size
+ * @returns {string} - file size with the right unit (Kb, Mb...)
+ */
 const bytesToSize = (bytes) => {
     const sizes = ['b', 'Kb', 'Mb', 'Gb', 'Tb']
     if (bytes === 0) return '0 Byte'

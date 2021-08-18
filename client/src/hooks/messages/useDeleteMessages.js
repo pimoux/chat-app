@@ -1,11 +1,6 @@
 const useDeleteMessages = (deleteMessage, setDeleteMessage, socket) => {
     const onSelectMessageToDelete = message => {
-        message.private ? setDeleteMessage({
-                id: message.id,
-                isPrivate: message.private,
-                recipient: message.recipient,
-            }) :
-            setDeleteMessage({id: message.id});
+            setDeleteMessage(message.id);
     };
 
     const onDeleteMessage = () => {

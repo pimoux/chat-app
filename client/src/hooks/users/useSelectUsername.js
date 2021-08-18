@@ -13,7 +13,7 @@ const useSelectUsername = (
     useEffect(() => {
         selectedUsername === disconnectedUsername && memoizedResetUsername();
     }, [disconnectedUsername, selectedUsername, memoizedResetUsername]);
-
+    
     const onSelectUsername = e => {
         e
             ? setSelectedUsername(e.target.textContent)

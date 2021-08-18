@@ -1,3 +1,6 @@
+/**
+ * get local storage informations: max capacity, capacity used and capacity remaining
+ */
 const localStorageSpace = () => {
     let data = '';
     for (let key in window.localStorage) {

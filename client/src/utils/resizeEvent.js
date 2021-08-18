@@ -2,6 +2,10 @@ import {closeRoomList, closeUserList} from './sidebars';
 
 let cooldown;
 
+/**
+ * manage responsive across resize event listener
+ * @param e - window event
+ */
 const resize = (e) => {
     clearTimeout(cooldown);
     cooldown = setTimeout(() => {
