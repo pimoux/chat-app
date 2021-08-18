@@ -41,5 +41,6 @@ export default React.createContext({
     onPrivateUploadFile: () => {},
     onSelectMessageToDelete: (message) => {},
     onDeleteMessage: () => {},
+    logout: () => {},
     //onChangeRoom: (nextRoom) => {},
 })

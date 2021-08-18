@@ -12,7 +12,7 @@ import {closeRoomList, closeUserList} from '../../utils/sidebars';
 const UserListItem = () => {
     const {
         users, name, onSelectUsername,
-        selectedUsername,
+        selectedUsername, logout
     } = useContext(ChatContext);
     const [isOpen, setIsOpen] = useState(false);
 
@@ -47,7 +47,7 @@ const UserListItem = () => {
             <Link to="/" className="logout">
                 <FontAwesomeIcon icon={faSignOutAlt}
                                  className="big-font red logout-icon"
-                                 onClick={() => document.title = 'Celestial Chat App'}/>
+                                 onClick={() => logout()}/>
             </Link>
             {selectedUsername ?
                 users.find(user => user.name === selectedUsername)

@@ -6,6 +6,7 @@ import useSpeech from '../speech/useSpeech';
 import useSendMessages from '../messages/useSendMessages';
 import useSelectUsername from '../users/useSelectUsername';
 import useSetupSockets from '../sockets/useSetupSockets';
+import useDisconnect from '../users/useDisconnect';
 
 const useCreatedChatContext = (location) => {
     const [name, setName] = useState('');
@@ -26,7 +27,7 @@ const useCreatedChatContext = (location) => {
     const [deleteMessage, setDeleteMessage] = useState('');
 
     const [socket] = useSetupSockets(
-        location, setName, setRoom, setRooms, messages, setMessages, setUsers,
+        location, setName, room, setRoom, setRooms, messages, setMessages, setUsers,
         setDisconnectedUsername,
     );
     const [handleBlock] = useHandleBlock(
@@ -35,6 +36,7 @@ const useCreatedChatContext = (location) => {
     const [onSelectUsername] = useSelectUsername(
         selectedUsername, setSelectedUsername, disconnectedUsername,
     );
+    const [logout] = useDisconnect();
     const [onSelectMessageToDelete, onDeleteMessage] = useDeleteMessages(
         deleteMessage, setDeleteMessage, socket,
     );
@@ -43,7 +45,7 @@ const useCreatedChatContext = (location) => {
         setSpeechContent, setMessage, selectedUsername,
     );
     const [onUploadFile, onPrivateUploadFile] = useFiles(
-        setUploadedFile, setPrivateUploadedFile, uploadedFile,
+        messages, setUploadedFile, setPrivateUploadedFile, uploadedFile,
         privateUploadedFile, selectedUsername, socket,
     );
     const [onSendMessage, onSendPrivateMessage] = useSendMessages(
@@ -100,6 +102,7 @@ const useCreatedChatContext = (location) => {
         onSelectMessageToDelete,
         onDeleteMessage,
         publicToggleSpeech,
+        logout,
         //onChangeRoom
     };
 

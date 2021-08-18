@@ -22,7 +22,7 @@ const RoomListItem = () => {
             {rooms.map((roomName, index) => {
                 return roomName === room ?
                     (<p className="underline" key={index}>{roomName}</p>) :
-                    (<p className="room-name" key={index} onClick={() => {
+                    (<p key={index} onClick={() => {
                         //setIsOpenRoom(true);
                         //setSelectedRoom(e.target.textContent);
                     }}>{roomName}</p>);

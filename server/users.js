@@ -62,6 +62,15 @@ const getAllUsers = () => {
 };
 
 /**
+ * get all users in room
+ * @param {string} room - room name
+ * @returns {*[]}
+ */
+const getAllUsersInRoom = (room) => {
+    return getAllUsers().filter(user => user.room === room);
+}
+
+/**
  * add the new user in every acceptMessagesBy list of all users to allow each
  * user to see the new user's messages.
  * @param {string} username - user name
@@ -126,6 +135,7 @@ module.exports = {
     removeUser,
     getUser,
     getAllUsers,
+    getAllUsersInRoom,
     blockUser,
     unblockUser,
     getRooms

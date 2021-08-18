@@ -19,10 +19,6 @@
     text-decoration: underline;
 }
 
-.room-name {
-    cursor: pointer;
-}
-
 /* MODAL */
 
 .modal-change-room {
