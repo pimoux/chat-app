@@ -2,7 +2,7 @@
 
 ![Screenshot 2021-08-19 at 23 03 02](https://user-images.githubusercontent.com/68294949/130144325-b3eade14-a8c4-40a0-8347-2fc7fa2ce1ad.png)
 
-###Presentation
+### Presentation
 
 This is a Realtime Chat Application made with React, socket.io, 
 Express and Node.js.<br />
@@ -11,7 +11,7 @@ where I added a lot of features on my Realtime Chat Application.
 Huge thanks to him for his tutorial, you can see his YouTube 
 channel [here](https://www.youtube.com/channel/UCmXmlB4-HJytD7wek0Uo97A).
 
-###Features
+### Features
 
 -messages, images <br />
 -private messages, private images <br />
