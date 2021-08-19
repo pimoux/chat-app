@@ -14,10 +14,10 @@ const RoomListItem = () => {
             <div className="arrow-left-container mobile">
                 <FontAwesomeIcon icon={faArrowLeft} className="big-font"
                                  onClick={() => closeRoomList()}/>
-                <p className="room-title">Room list</p>
+                <p className="room-title underline">Room list</p>
             </div>
             <div className="desktop">
-                <p className="room-title">Room list</p>
+                <p className="room-title underline">Room list</p>
             </div>
             {rooms.map((roomName, index) => {
                 return roomName === room ?

@@ -13,15 +13,7 @@
     text-decoration: underline;
 }
 
-.user {
-    cursor: pointer;
-}
-
-.you {
-    text-decoration: underline;
-}
-
-.user.you {
+.user.underline {
     cursor: default;
 }
 
@@ -63,7 +55,6 @@
 
 .very-big-font {
     font-size: 1.75rem;
-    cursor: pointer;
 }
 
 .private-actions button {
@@ -96,20 +87,10 @@
     padding: 0.25rem;
     background-color: black;
     border-radius: 100px;
-    cursor: pointer;
-}
-
-.ban {
-    color: red;
 }
 
 .blocked {
-    opacity: 0.3;
-}
-
-.modal-close {
-    text-decoration: underline;
-    cursor: pointer;
+    color: red;
 }
 
 .private-title-container {

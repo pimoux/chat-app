@@ -1,4 +1,4 @@
-.signin{
+.signin {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -7,7 +7,11 @@
     height: 100vh;
 }
 
-.join-chat{
+.credits {
+    width: 30vw;
+}
+
+.join-chat {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -19,55 +23,54 @@
     background-color: lightgray;
 }
 
-#input-username, #input-room{
+#input-username, #input-room {
     font-size: 1.25em;
     outline: none;
     font-family: 'Montserrat', sans-serif;
     margin-bottom: 1rem;
 }
 
-#input-username:focus, #input-room:focus{
+#input-username:focus, #input-room:focus {
     border: 2px solid blue;
 }
 
-#input-username::placeholder, #input-room::placeholder{
+#input-username::placeholder, #input-room::placeholder {
     font-family: 'Montserrat', sans-serif;
 }
 
-.chat-celeste{
+.chat-celeste {
     border-bottom: 1px solid black;
     font-size: 1.25rem;
     margin-bottom: 1rem;
     margin-top: 0;
 }
 
-#submit-user, #submit-user:before{
+#submit-user, #submit-user:before {
     background: #52A0FD;
     background: linear-gradient(to right, #52A0FD 0%, #00e2fa 80%, #00e2fa 100%);
 }
 
-#submit-user{
+#submit-user {
     margin-top: 1rem;
     font-size: 1.25rem;
     padding: 0.5rem 4rem;
     border-radius: 2rem;
-    cursor: pointer;
     font-family: 'Montserrat', sans-serif;
-    color: white;
-    border: none;
+    color: black;
+    border: 1px solid black;
 }
 
-#submit-user:hover{
+#submit-user:hover {
     opacity: 0.8;
 }
 
-.hasError{
+.hasError {
     visibility: visible;
     color: darkred;
     text-align: center;
     padding: 0 1rem;
 }
 
-.hasNotError{
+.hasNotError {
     visibility: hidden;
 }

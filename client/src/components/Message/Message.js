@@ -19,7 +19,7 @@ const Message = ({message, name}) => {
         return (messageSentByCurrentUser ?
             <>
                 <div className="message-container end">
-                    <div className="message current" onClick={() => {
+                    <div className="message current pointer" onClick={() => {
                         onSelectMessageToDelete(message)
                         setIsOpen(true)
                     }}>
@@ -45,7 +45,7 @@ const Message = ({message, name}) => {
         return (messageSentByCurrentUser ?
             <div className="message-container end">
                 <p className="username pr-2">to {message.recipient}</p>
-                <div className="message current private" onClick={() => {
+                <div className="message current private pointer" onClick={() => {
                     onSelectMessageToDelete(message)
                     setIsOpen(true);
                 }}>
@@ -68,7 +68,7 @@ const Message = ({message, name}) => {
                         {ReactEmoji.emojify(message.text)}
                     </p>
                 </div>
-                <p className="username pl-2">{message.user} whispers to you</p>
+                <p className="username pl-2">from {message.user}</p>
             </div>
         )
     }

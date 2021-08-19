@@ -33,26 +33,26 @@ const ModalPrivateUser = ({isOpen, setIsOpen}) => {
                 <p className="private-title">Send a private message
                     to {selectedUsername} &nbsp;
                 </p>
-                <div className="ban-container"
+                <div className="ban-container pointer"
                      onClick={() => {
                          handleBlock();
                          setIsOpen(false);
                      }}>
-                    <FontAwesomeIcon icon={faBan} className="ban"/>
+                    <FontAwesomeIcon icon={faBan} className="red"/>
                 </div>
             </div>
             <div className="private-actions">
                 <label htmlFor="send-private-image">
                     <FontAwesomeIcon icon={faPaperclip}
-                                     className="very-big-font"/>
+                                     className="very-big-font pointer"/>
                 </label>
                 <FontAwesomeIcon
                     icon={faMicrophone}
                     id="fa-microphone-private"
                     onClick={() => toggleSpeech()}
                     className={isPrivateSpeech
-                        ? 'big-font ml-24 red'
-                        : 'big-font ml-24'}/>
+                        ? 'big-font ml-24 red pointer'
+                        : 'big-font ml-24 pointer'}/>
                 <input
                     type="file"
                     name="send-private-image"
@@ -70,7 +70,7 @@ const ModalPrivateUser = ({isOpen, setIsOpen}) => {
                 />
                 <button type="submit" className="mobile self-end"
                         onClick={(e) => onSendPrivateMessage(e)}>
-                    <FontAwesomeIcon icon={faPaperPlane} className="big-font"/>
+                    <FontAwesomeIcon icon={faPaperPlane} className="big-font pointer"/>
                 </button>
             </div>
         </div>

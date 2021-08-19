@@ -52,15 +52,15 @@ io.on('connection', (socket) => {
         );
 
         const welcomedSentences = [
-            `Un ${user.name} sauvage nous a rejoint!`,
-            `Content de te voir, ${user.name}`,
-            `Voici l'atterrissage d'un ${user.name} dans ce salon`,
-            `${user.name} a rejoint le salon`,
-            `bienvenue ${user.name}, j'espère que tu nous a apporté des spaghettis bolognaise!`,
+            `A wild ${user.name} joined us!`,
+            `Happy to see you here, ${user.name}`,
+            `Here is the landing of a ${user.name} in this room!`,
+            `${user.name} joined the room`,
+            `Hi ${user.name}, I hope you brought us hamburgers and fries !`,
         ];
         const text = welcomedSentences[Math.floor(
             Math.random() * welcomedSentences.length)];
-        const date = new Date().toLocaleTimeString(['fr-FR'],
+        const date = new Date().toLocaleTimeString(['en-EN'],
             {hour: '2-digit', minute: '2-digit'});
         const welcomedMessage = {
             id: uuidv4(),
@@ -79,7 +79,7 @@ io.on('connection', (socket) => {
 
     socket.on('send-message', (message, callback) => {
         const user = getUser(socket.id);
-        const date = new Date().toLocaleTimeString(['fr-FR'],
+        const date = new Date().toLocaleTimeString(['en-EN'],
             {hour: '2-digit', minute: '2-digit'});
         const messageSent = {
             id: uuidv4(),
@@ -106,7 +106,7 @@ io.on('connection', (socket) => {
         const recipientId = getAllUsers()
         .find(user => user.name === recipient).id;
         const date = new Date().toLocaleTimeString(
-            ['fr-FR'], {hour: '2-digit', minute: '2-digit'},
+            ['en-EN'], {hour: '2-digit', minute: '2-digit'},
         );
         const privateMessage = {
             id: uuidv4(),
@@ -114,7 +114,7 @@ io.on('connection', (socket) => {
             room: user.room,
             text: senderIndex !== -1 ?
                 content :
-                `${content} (cette personne vous a bloqué, elle ne verra pas votre message)`,
+                `${content} (this user has blocked you, he will not see your message)`,
             date: date,
             private: true,
             recipient: recipient,
@@ -128,7 +128,7 @@ io.on('connection', (socket) => {
 
     socket.on('send-image', ({url, fileInfo}) => {
         const user = getUser(socket.id);
-        const date = new Date().toLocaleTimeString(['fr-FR'],
+        const date = new Date().toLocaleTimeString(['en-EN'],
             {hour: '2-digit', minute: '2-digit'});
         const image = {
             id: uuidv4(),
@@ -154,7 +154,7 @@ io.on('connection', (socket) => {
         const recipientId = getAllUsers().
             find(user => user.name === recipient).id;
         const date = new Date().toLocaleTimeString(
-            ['fr-FR'], {hour: '2-digit', minute: '2-digit'},
+            ['en-EN'], {hour: '2-digit', minute: '2-digit'},
         );
         const privateImage = {
             id: uuidv4(),
@@ -191,14 +191,14 @@ io.on('connection', (socket) => {
 
     socket.on('disconnect', () => {
         const user = removeUser(socket.id);
-        const date = new Date().toLocaleTimeString(['fr-FR'],
+        const date = new Date().toLocaleTimeString(['en-EN'],
             {hour: '2-digit', minute: '2-digit'});
         if (user) {
             const message = {
                 id: uuidv4(),
                 user: 'God',
                 room: user.room,
-                text: `${user.name} nous a quitté :(`,
+                text: `${user.name} left the room :(`,
                 date: date,
                 private: false,
                 type: 'text',

@@ -40,7 +40,7 @@ const useSetupSockets = (
     useEffect(() => {
         socket = io(ENDPOINT);
         const { name, room } = queryString.parse(location.search.split('?')[1]);
-        memoizedName(name);
+        memoizedName(name.trim().toLowerCase());
         memoizedRoom(room);
         document.title = name.toString();
 

@@ -10,6 +10,14 @@ body {
     font-family: 'Montserrat', sans-serif;
 }
 
+.pointer {
+    cursor: pointer;
+}
+
+.underline {
+    text-decoration: underline;
+}
+
 .mobile {
     display: none;
 }
@@ -22,7 +30,6 @@ body {
     color: #fff;
     background-color: #dc3545;
     border-color: #dc3545;
-    cursor: pointer;
     padding: 0.5rem 2rem;
     border-radius: 10px;
 }
@@ -37,7 +44,6 @@ body {
     color: #000;
     background-color: #f8f9fa;
     border-color: #f8f9fa;
-    cursor: pointer;
     padding: 0.5rem 2rem;
     border-radius: 10px;
 }

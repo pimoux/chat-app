@@ -17,7 +17,7 @@ const ModalChangeRoom = ({isOpen, setIsOpen, nextRoom, resetSelectedRoom}) => {
         ariaHideApp={false}
     >
         <div className="modal-change-room">
-            <p>Êtes vous sûr de rejoindre le salon {nextRoom} ?</p>
+            <p>Are you sure to join the room {nextRoom} ?</p>
             <div className="choice-change-room">
                 <button className="cancel" onClick={() => {
                     setIsOpen(false);

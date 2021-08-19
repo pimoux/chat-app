@@ -29,10 +29,10 @@ const UserListItem = () => {
                 return (
                     <div key={i}>
                         {user.name === name ?
-                            (<p className="user you">{user.name}</p>) :
+                            (<p className="underline">{user.name}</p>) :
                             (<p className={user.acceptMessagesBy.find(
                                 username => username === name) ?
-                                'user' : 'user blocked'}
+                                'pointer' : 'blocked pointer'}
                                 onClick={(e) => {
                                     setIsOpen(true);
                                     if(window.innerWidth < 640){
@@ -46,7 +46,7 @@ const UserListItem = () => {
             })}
             <Link to="/" className="logout">
                 <FontAwesomeIcon icon={faSignOutAlt}
-                                 className="big-font red logout-icon"
+                                 className="big-font red logout-icon pointer"
                                  onClick={() => logout()}/>
             </Link>
             {selectedUsername ?

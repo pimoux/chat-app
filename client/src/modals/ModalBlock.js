@@ -18,12 +18,11 @@ const ModalBlock = ({
         ariaHideApp={false}
     >
         <div className="modal-block">
-            <p>Vous avez bloqué {selectedUsername}, vous ne verrez donc aucun
-                message de sa part. <span onClick={() => {
+            <p>You blocked {selectedUsername}, you will not see his messages.&nbsp;
+                <span onClick={() => {
                     handleBlock();
                     setIsOpen(false);
-                }} className="modal-close">Cliquez ici</span>&nbsp;pour
-                débloquer cette personne </p>
+                }} className="underline pointer">Click here</span> to unblock this user</p>
         </div>
     </Modal>);
 };

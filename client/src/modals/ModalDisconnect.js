@@ -11,11 +11,11 @@ const ModalDisconnect = ({ isOpen, setIsOpen }) => {
         ariaHideApp={false}
     >
         <div className="modal-disconnect">
-            <p>La personne s'est déconnecté.&nbsp;
-                <span className="modal-close" onClick={() => setIsOpen(false)}>
-                Cliquez ici
+            <p>The user has disconnected.&nbsp;
+                <span className="underline pointer" onClick={() => setIsOpen(false)}>
+                Click here
                 </span>
-                &nbsp;pour revenir à la zone de chat principale.</p>
+                &nbsp;to come back to the main chat.</p>
         </div>
     </Modal>)
 }

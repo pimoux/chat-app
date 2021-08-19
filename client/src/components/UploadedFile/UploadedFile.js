@@ -16,12 +16,11 @@ const UploadedFile = ({message, name}) => {
     if (!message.private) {
         return (messageSentByCurrentUser ?
             <div className="message-container end">
-                <div className="message current" onClick={() => {
+                <div className="message current pointer" onClick={() => {
                     onSelectMessageToDelete(message);
                     setIsOpenChoice(true);
                 }}>
                     <p className="message-text white">
-                        Vous avez uploadé un fichier:
                         <span className="image-info" onClick={() => {
                             setIsOpen(true);
                             setTimeout(() => setIsOpenChoice(false), 0);
@@ -39,7 +38,6 @@ const UploadedFile = ({message, name}) => {
                 <p className="date">{message.date}</p>
                 <div className="message other">
                     <p className="message-text dark">
-                        {message.user} a uploadé un fichier:
                         <span className="image-info" onClick={() => setIsOpen(true)}>
                             {message.fileInfo.name} ({bytes})
                         </span>
@@ -52,12 +50,12 @@ const UploadedFile = ({message, name}) => {
     } else {
         return (messageSentByCurrentUser ?
             <div className="message-container end">
-                <div className="message current private" onClick={() => {
+                <p className="username pr-2">to {message.recipient}</p>
+                <div className="message current private pointer" onClick={() => {
                     onSelectMessageToDelete(message);
                     setIsOpenChoice(true);
                 }}>
                     <p className="message-text white">
-                        Vous avez envoyé un fichier privé à {message.recipient}:
                         <span className="image-info" onClick={() => {
                             setIsOpen(true)
                             setTimeout(() => setIsOpenChoice(false), 0);
@@ -74,12 +72,13 @@ const UploadedFile = ({message, name}) => {
             <div className="message-container start">
                 <p className="date">{message.date}</p>
                 <div className="message other private">
-                    <p className="message-text dark">{message.user} vous a envoyé un fichier privé:
+                    <p className="message-text dark">
                         <span className="image-info" onClick={() => setIsOpen(true)}>
                             {message.fileInfo.name} ({bytes})
                         </span>
                     </p>
                 </div>
+                <p className="username pl-2">from {message.user}</p>
                 <ModalImage url={message.url} isOpen={isOpen} setIsOpen={setIsOpen}/>
             </div>
         )

@@ -17,12 +17,12 @@ const ModalChoice = ({ isOpen, setIsOpen }) => {
         <div className="modal-delete-message">
             <p className="center">Are you sure to delete this message ?</p>
             <div className="choice-delete-message">
-                <button className="cancel" onClick={() => {
+                <button className="cancel pointer" onClick={() => {
                     setIsOpen(false)
                     onSelectMessageToDelete('')
                 }}>No I don't want
                 </button>
-                <button className="confirm" onClick={() => {
+                <button className="confirm pointer" onClick={() => {
                     onDeleteMessage()
                     setIsOpen(false)
                 }}>Sure !

@@ -11,12 +11,7 @@
 }
 
 .room-title {
-    text-decoration: underline;
     font-size: 1.25rem;
-}
-
-.underline {
-    text-decoration: underline;
 }
 
 /* MODAL */

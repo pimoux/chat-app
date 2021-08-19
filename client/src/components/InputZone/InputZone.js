@@ -22,7 +22,7 @@ const InputZone = () => {
         <div className="input-zone">
             <div className="image-container">
                 <label htmlFor="send-image">
-                    <FontAwesomeIcon icon={faPaperclip} className="big-font"/>
+                    <FontAwesomeIcon icon={faPaperclip} className="big-font pointer"/>
                 </label>
                 <input
                     onChange={(e) => onUploadFile(e)}
@@ -37,8 +37,8 @@ const InputZone = () => {
                 onClick={() => publicToggleSpeech()}
                 id="fa-microphone-public"
                 className={isSpeechActivated
-                    ? 'big-font ml-24 red'
-                    : 'big-font ml-24'}/>
+                    ? 'big-font ml-24 red pointer'
+                    : 'big-font ml-24 pointer'}/>
             <input
                 onChange={(e) => setMessage(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' ? onSendMessage(e) : null}
@@ -48,7 +48,7 @@ const InputZone = () => {
                 placeholder="write a message..."
             />
             <div className="send-public-message-icon mobile">
-                <FontAwesomeIcon icon={faPaperPlane} className="big-font"
+                <FontAwesomeIcon icon={faPaperPlane} className="big-font pointer"
                                  onClick={(e) => onSendMessage(e)}/>
             </div>
         </div>
