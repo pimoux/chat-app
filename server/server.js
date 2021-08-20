@@ -1,9 +1,10 @@
 const express = require('express');
 const socketio = require('socket.io');
 const http = require('http');
+const cors = require('cors');
 const {v4: uuidv4} = require('uuid');
 
-const PORT = process.env.port || 5000;
+const PORT = process.env.PORT || 5000;
 const router = require('./router');
 const app = express();
 const server = http.createServer(app);
@@ -13,6 +14,9 @@ corsOptions = {
     origins: ['http://localhost:3000'],
 };
 const io = socketio(server, corsOptions);
+
+app.use(router);
+app.use(cors());
 
 const {
     addUser,
@@ -212,6 +216,4 @@ io.on('connection', (socket) => {
     });
 });
 
-app.use(router);
-
-server.listen(PORT, () => console.log(`server started on port ${PORT}`));
+server.listen(process.env.PORT, () => console.log(`server started on port ${PORT}`));

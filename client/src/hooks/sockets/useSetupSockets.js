@@ -36,7 +36,7 @@ const useSetupSockets = (
         setUsers(users);
     }, [setUsers])
 
-    const ENDPOINT = 'localhost:5000';
+    const ENDPOINT = 'https://pimoux-react-chat-app.herokuapp.com/';
     useEffect(() => {
         socket = io(ENDPOINT);
         const { name, room } = queryString.parse(location.search.split('?')[1]);
