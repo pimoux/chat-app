@@ -9,7 +9,8 @@ Express and Node.js.<br />
 I resume the [JS Mastery's Chat App tutorial](https://www.youtube.com/watch?v=ZwFA3YMfkoc) 
 where I added a lot of features on my Realtime Chat Application. 
 Huge thanks to him for his tutorial, you can see his YouTube 
-channel [here](https://www.youtube.com/channel/UCmXmlB4-HJytD7wek0Uo97A).
+channel [here](https://www.youtube.com/channel/UCmXmlB4-HJytD7wek0Uo97A). <br />
+You can try the demo [here](https://stoic-panini-82e045.netlify.app/).
 
 ### Features
 
@@ -17,6 +18,7 @@ channel [here](https://www.youtube.com/channel/UCmXmlB4-HJytD7wek0Uo97A).
 -private messages, private images <br />
 -public and private speech recognition <br />
 -history of the last 100 messages sent by users <br />
+-room system <br />
 -users can delete their messages and images <br />
 -user list in a room and room list <br />
 -a user can block or unblock a user <br />
