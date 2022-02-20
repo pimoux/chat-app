@@ -42,5 +42,4 @@ export default React.createContext({
     onSelectMessageToDelete: (message) => {},
     onDeleteMessage: () => {},
     logout: () => {},
-    //onChangeRoom: (nextRoom) => {},
 })

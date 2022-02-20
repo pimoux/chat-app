@@ -12,7 +12,7 @@ const addUser = ({id, name, room}) => {
     const existingUser = users.filter(user => user.room === room)
     .find(user => user.name === name);
     if (existingUser) {
-        return {error: 'ce nom d\'utilisateur a déjà été choisi dans ce salon. Vous allez être redirigé à la page d\'accueil.'};
+        return {error: 'This username has already been chosen. You will be redirected to the home page.'};
     }
 
     const acceptMessagesBy = getAllUsers()
