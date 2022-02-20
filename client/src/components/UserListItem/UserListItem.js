@@ -10,10 +10,7 @@ import {faArrowRight, faSignOutAlt} from '@fortawesome/free-solid-svg-icons';
 import {closeRoomList, closeUserList} from '../../utils/sidebars';
 
 const UserListItem = () => {
-    const {
-        users, name, onSelectUsername,
-        selectedUsername, logout
-    } = useContext(ChatContext);
+    const { users, name, onSelectUsername, selectedUsername, logout } = useContext(ChatContext);
     const [isOpen, setIsOpen] = useState(false);
 
     return (

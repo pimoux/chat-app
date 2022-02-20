@@ -7,8 +7,6 @@ import ChatContext from '../../context/ChatContext';
 
 const RoomListItem = () => {
     const {rooms, room} = useContext(ChatContext);
-    //const [isOpenRoom, setIsOpenRoom] = useState(false);
-    //const [selectedRoom, setSelectedRoom] = useState('');
     return (
         <div className="room-list-item">
             <div className="arrow-left-container mobile">
@@ -23,14 +21,8 @@ const RoomListItem = () => {
                 return roomName === room ?
                     (<p className="underline" key={index}>{roomName}</p>) :
                     (<p key={index} onClick={() => {
-                        //setIsOpenRoom(true);
-                        //setSelectedRoom(e.target.textContent);
                     }}>{roomName}</p>);
             })}
-            {/*<ModalChangeRoom isOpen={isOpenRoom} setIsOpen={setIsOpenRoom}*/}
-            {/*                 nextRoom={selectedRoom}*/}
-            {/*                 resetSelectedRoom={() => setSelectedRoom('')}*/}
-            {/*/>*/}
         </div>
     );
 };

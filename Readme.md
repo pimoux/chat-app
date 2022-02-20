@@ -5,12 +5,10 @@
 ### Presentation
 
 This is a Realtime Chat Application made with React, socket.io, 
-Express and Node.js.<br />
+Express and NodeJS.<br />
 I resume the [JS Mastery's Chat App tutorial](https://www.youtube.com/watch?v=ZwFA3YMfkoc) 
-where I added a lot of features on my Realtime Chat Application. 
-Huge thanks to him for his tutorial, you can see his YouTube 
-channel [here](https://www.youtube.com/channel/UCmXmlB4-HJytD7wek0Uo97A). <br />
-You can try the demo [here](https://stoic-panini-82e045.netlify.app/).
+where I added a lot of features on my Realtime Chat Application. Huge thanks to him for his tutorial, you can see his YouTube channel [here](https://www.youtube.com/channel/UCmXmlB4-HJytD7wek0Uo97A). <br />
+You can try the demo [here](https://pimoux-chat-app.netlify.app/).
 
 ### Features
 

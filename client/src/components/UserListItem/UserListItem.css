@@ -11,6 +11,7 @@
 
 .user-title {
     text-decoration: underline;
+    font-weight: 500;
 }
 
 .user.underline {
